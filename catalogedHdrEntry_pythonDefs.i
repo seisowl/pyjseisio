@@ -5,32 +5,34 @@
 %pythoncode %{
 
     def getVal(self, hdrBuf):
-    """ 
-    Get the value of a header from a header buffer. 
-    The format of the returned value is inferred from the 
-    getFormatAsStr() method.
-    """
+        """ 
+        Get the value of a header from a header buffer. 
+        The format of the returned value is inferred from the 
+        getFormatAsStr() method.
+        """
+        frmt = self.getFormatAsStr();
         return {
-            'float': self.getFloatVal(hdrBuf),
-            'double': self.getDoubleVal(hdrBuf),
-            'int': self.getIntVal(hdrBuf),
-            'short': self.getShortVal(hdrBuf),
-            'long': self.getLongVal(hdrBuf)
-        }.get(self.getFormatAsStr())
+            'float': self.getFloatVal,
+            'double': self.getDoubleVal,
+            'int': self.getIntVal,
+            'short': self.getShortVal,
+            'long': self.getLongVal
+        }.get(frmt)(hdrBuf)
 
     def setVal(self, hdrBuf, value):
-    """ 
-    Set the value of a header in a header buffer. 
-    The format of the set value is inferred from the 
-    getFormatAsStr() method.
-    """
+        """ 
+        Set the value of a header in a header buffer. 
+        The format of the set value is inferred from the 
+        getFormatAsStr() method.
+        """
+        frmt = self.getFormatAsStr();
         return {
-            'float': self.setFloatVal(hdrBuf, value),
-            'double': self.setDoubleVal(hdrBuf, value),
-            'int': self.setIntVal(hdrBuf, value),
-            'short': self.setShortVal(hdrBuf, value),
-            'long': self.setLongVal(hdrBuf, value)
-        }.get(self.getFormatAsStr())
+            'float': self.setFloatVal,
+            'double': self.setDoubleVal,
+            'int': self.setIntVal,
+            'short': self.setShortVal,
+            'long': self.setLongVal
+        }.get(frmt)(hdrBuf,value)
 
 
 %}
