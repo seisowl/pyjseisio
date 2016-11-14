@@ -10,7 +10,7 @@
 	%rename("_readFrameAndHeaders") readFrame(const int*, float *, char *);
 	%rename("_readFrameOnly") readFrame(const int*, float *);
 
-	% rename other functions in favor of custom python wrappers
+	# rename other functions in favor of custom python wrappers
 	%rename("_getHeaderWords") getHeaderWords;
 	%rename("_getAxisLogicalValues") getAxisLogicalValues;
 	%rename("_getAxisPhysicalValues") getAxisPhysicalValues;
