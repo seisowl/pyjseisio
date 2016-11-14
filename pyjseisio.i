@@ -11,21 +11,25 @@
 using namespace jsIO;
 %}
 
-%init %{
-import_array();
-%}
-
 
 %include <std_string.i>
 %include <std_vector.i>
 %include <typemaps.i>
 %include "numpy.i"
 
+%init %{
+import_array();
+%}
+
+
 # pyjseisio interface files
 %include "vector_templates.i"
 %include "ignore_methods.i"
 %include "jsFileReader_typemaps.i"
 %include "jsFileReader_pythonDefs.i"
+%include "catalogedHdrEntry_typemaps.i"
+
+
 
 %pythoncode %{
 def vectorToList(vector):

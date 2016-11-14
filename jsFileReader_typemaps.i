@@ -1,14 +1,12 @@
 # pyjseisio SWIG interface file
 # typemaps for jsFileReader
 
-%module pyjseisio
-
 %extend jsIO::jsFileReader {
 
 	# rename overloaded functions
 	%rename("_readFrame") readFrame;
-	%rename("_readFrameAndHeaders") readFrame(const int*, float *, char *);
-	%rename("_readFrameOnly") readFrame(const int*, float *);
+	%rename("_readFrameAndHdrs") readFrame(const long, float *, char *);
+	%rename("_readFrameOnly") readFrame(const long, float *);
 
 	# rename other functions in favor of custom python wrappers
 	%rename("_getHeaderWords") getHeaderWords;
@@ -24,7 +22,7 @@
 		// Allocate Numpy array for header
 		npy_intp hdrDims[2];
 		hdrDims[0] = (npy_intp) arg1->getAxisLen(1)*arg1->getNumBytesInHeader();
-		header = PyArray_SimpleNew(1, hdrDims, NPY_CHAR);
+		header = PyArray_SimpleNew(1, hdrDims, NPY_BYTE);
 		if (!header) SWIG_fail;
 		$1 = (char*) array_data(header);
 	}

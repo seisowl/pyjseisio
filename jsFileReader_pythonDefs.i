@@ -1,7 +1,5 @@
 # add some convenience functions for the resulting python class
 
-%module pyjseisio
-
 %extend jsIO::jsFileReader {
 
 	%pythoncode %{
@@ -11,10 +9,17 @@
             Read one frame from the dataset at the given frameIndex.
             Returns a numpy ndarray with shape (AxisLen(1),AxisLen(0))
             """
-            frame = self._readFrame(frameIndex,0)[1];
+            frame = self._readFrameOnly(frameIndex,0)[1];
             return frame.reshape((self.getAxisLen(1), 
                                   self.getAxisLen(0)))
 
+        def readFrameAndHdrs(self, frameIndex):
+            """
+            Read one frame from the dataset at the given frameIndex with headers
+            Returns a numpy ndarray with shape (AxisLen(1),AxisLen(0))
+            """
+            data = self._readFrameAndHdrs(frameIndex,0,0);
+            return (data[1].reshape((self.getAxisLen(1), self.getAxisLen(0))), data[2].reshape((self.getAxisLen(1),self.getNumBytesInHeader())))
 
         def getHeaderWords(self):
             """
