@@ -28,10 +28,18 @@ import_array();
 %include "jsFileReader_typemaps.i"
 %include "jsFileReader_pythonDefs.i"
 %include "catalogedHdrEntry_typemaps.i"
+%include "catalogedHdrEntry_pythonDefs.i"
 
 
 
 %pythoncode %{
+
+def open(filename):
+    newReader = jsFileReader()
+    newReader.Init(filename)
+    newReader.makeHeaderDict()
+    return newReader
+
 def vectorToList(vector):
     return [vector[x] for x in xrange(vector.size())]
 %}
