@@ -1,10 +1,11 @@
 # pyjseisio SWIG interface file
 # typemaps for jsFileReader
 
-%apply (int DIM1, signed char* INPLACE_ARRAY1) {(int arrayLength, signed char* headerBuf)};
-%typemap(typecheck) signed char* headerBuf "";
-
 %extend jsIO::catalogedHdrEntry {
+
+	%apply (int DIM1, signed char* INPLACE_ARRAY1) 
+		{(int arrayLength, signed char* headerBuf)};
+	%typemap(typecheck) signed char* headerBuf "";
 
 	float getFloatVal(int arrayLength, signed char* headerBuf){
 		return ($self)->getFloatVal((char*)headerBuf);

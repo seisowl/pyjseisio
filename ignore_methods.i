@@ -1,4 +1,6 @@
 # list of functions to ignore for now ... not implemented in SWIG yet
+
+# unimplemented jsFileReader methods
 %ignore jsIO::jsFileReader::uncompressRawFrame;
 %ignore jsIO::jsFileReader::readRawFrames;
 %ignore jsIO::jsFileReader::readWithinLiveTraceHeaders;
