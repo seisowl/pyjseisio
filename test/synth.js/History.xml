@@ -1,0 +1,698 @@
+<parset name="HISTORY">
+  <par name="COOKIE" type="int"> 3985821 </par>
+  <par name="DATASET_DESC" type="string"> synth </par>
+  <parset name="IOHISTORY_0">
+    <par name="FLOW_NAME" type="string"> makeSynth.15 </par>
+    <par name="DATASET_DESC" type="string"> synth </par>
+    <parset name="METADATA">
+    </parset>
+    <parset name="FLOW">
+      <par name="flowType" type="string"> PWFlow </par>
+      <parset name="flowParameters">
+        <parset name="etc">
+          <par name="date" type="string"> "Tue Nov 15 10:01:19 CST 2016" </par>
+          <par name="show" type="boolean"> true </par>
+        </parset>
+        <parset name="Submit">
+          <par name="QueueID" type="string"> "" </par>
+          <par name="niterations" type="int"> 1 </par>
+          <par name="autoChaining" type="boolean"> false </par>
+          <par name="startIteration" type="int"> 0 </par>
+          <par name="Cluster" type="string"> "" </par>
+          <par name="envp" type="string"> PROMAX_QUEUE_PRIORITY=10 </par>
+          <par name="Hosts" type="string"> localhost </par>
+          <par name="Queue" type="string"> "" </par>
+          <par name="nJobletsPerExec" type="int"> 1 </par>
+          <par name="nExecsPerNode" type="int"> 1 </par>
+          <par name="nQueueNodes" type="int"> 1 </par>
+          <par name="nsubmits" type="int"> 1 </par>
+          <par name="submitTo" type="string"> Hosts </par>
+        </parset>
+        <parset name="AREALINE">
+          <par name="AREA" type="string"> "eyms                            " </par>
+          <par name="DEVICERV" type="string"> "        " </par>
+          <par name="FLOWNAME" type="string"> makeSynth </par>
+          <par name="LINE" type="string"> "devtest                         " </par>
+          <par name="FLOW" type="string"> "makesynth                       " </par>
+          <par name="NOWAIT" type="int"> 1 </par>
+          <par name="SEQSTART" type="int"> 0 </par>
+          <par name="PRODUCT" type="int"> 101 </par>
+        </parset>
+        <parset name="EXEC">
+          <parset name="etc">
+          </parset>
+          <parset name="PROCDESC">
+            <par name="product" type="string"> PROWESS </par>
+            <par name="collapse" type="boolean"> false </par>
+            <par name="label" type="string"> com.lgc.prodesk.flowbuilder.menu.ExecutiveProc </par>
+            <par name="name" type="string"> com.lgc.prodesk.flowbuilder.menu.ExecutiveProc </par>
+            <par name="toolType" type="string"> NORMAL </par>
+            <par name="type" type="string"> Java </par>
+          </parset>
+          <parset name="menuParameters">
+            <par name="CHAINED" type="boolean"> false </par>
+            <par name="PRECURSORS" type="string"> "" </par>
+            <par name="OVERRIDE_XMX_VALUE" type="boolean"> false </par>
+            <par name="JAVA_XMX_VALUE" type="long"> 2048 </par>
+            <par name="OVERRIDE_SUBMIT_NODES" type="boolean"> false </par>
+            <par name="NUMBER_NODES" type="int"> 1 </par>
+            <par name="EXECS_PER_NODE" type="int"> 1 </par>
+            <par name="RUN_AS_REPLICAS" type="boolean"> false </par>
+            <par name="RUN_ALL_REPLICAS" type="boolean"> true </par>
+            <par name="REP_SEQ1" type="int"> 1 </par>
+            <par name="REP_SEQ2" type="int"> 1 </par>
+          </parset>
+          <parset name="parameterAttributes">
+          </parset>
+        </parset>
+      </parset>
+      <parset name="modules">
+        <parset name="com.lgc.prowess.tool.syntrgen.JSSynTrGenTool #1">
+          <par name="ToolName" type="string"> com.lgc.prowess.tool.syntrgen.JSSynTrGenTool </par>
+          <par name="enabled" type="boolean"> true </par>
+          <parset name="parameters">
+            <parset name="etc">
+            </parset>
+            <parset name="PROCDESC">
+              <par name="name" type="string"> com.lgc.prowess.tool.syntrgen.JSSynTrGenProc </par>
+              <par name="type" type="string"> Java </par>
+              <par name="product" type="string"> PROWESS </par>
+              <par name="label" type="string"> "JavaSeis Synthetic Trace Generation" </par>
+              <par name="toolType" type="string"> INPUT </par>
+              <par name="collapse" type="boolean"> false </par>
+            </parset>
+            <parset name="menuParameters">
+              <par name="DATA_ORG_TYPE" type="string"> PRESTACK4D </par>
+              <par name="ENS_TYPE" type="int"> 1 </par>
+              <par name="DECOMPOSITION" type="string"> BLOCK </par>
+              <par name="DECOMPOSITION_AXIS" type="string"> VOLUME </par>
+              <par name="FIFTH_DIMENSION_HDR" type="string"> HYPRCUBE </par>
+              <par name="N_HYPERCUBES" type="long"> 4 </par>
+              <par name="FIRST_HYPERCUBE" type="long"> 1 </par>
+              <par name="HYPERCUBE_INCREMENT" type="long"> 1 </par>
+              <par name="LAST_HYPERCUBE_PARM" type="string"> 4 </par>
+              <par name="HYP_KEY_DX" type="double"> 50.0 </par>
+              <par name="HYP_KEY_DY" type="double"> 0.0 </par>
+              <par name="FOURTH_DIMENSION_HDR" type="string"> ILINE_NO </par>
+              <par name="N_VOLUMES" type="long"> 3 </par>
+              <par name="FIRST_VOLUME" type="long"> 1000 </par>
+              <par name="VOLUME_INCREMENT" type="long"> 1 </par>
+              <par name="LAST_VOLUME_PARM" type="string"> 1002 </par>
+              <par name="VOL_KEY_DX" type="double"> 50.0 </par>
+              <par name="VOL_KEY_DY" type="double"> 0.0 </par>
+              <par name="THIRD_DIMENSION_HDR" type="string"> XLINE_NO </par>
+              <par name="PRIMARY_SORT" type="string"> cdp </par>
+              <par name="N_FRAMES" type="long"> 3 </par>
+              <par name="FIRST_FRAME" type="long"> 2000 </par>
+              <par name="FRAME_INCREMENT" type="long"> 1 </par>
+              <par name="LAST_FRAME_PARM" type="string"> 2002 </par>
+              <par name="PKEY_DX" type="double"> 0.0 </par>
+              <par name="PKEY_DY" type="double"> 50.0 </par>
+              <par name="SECOND_DIMENSION_LABEL" type="string"> SEQNO </par>
+              <par name="SECOND_DIMENSION_HDR" type="string"> SEQNO </par>
+              <par name="N_TRACES" type="long"> 40 </par>
+              <par name="FIRST_TRACE" type="long"> 1 </par>
+              <par name="TRACE_INCREMENT" type="long"> 1 </par>
+              <par name="LAST_TRACE_PARM" type="string"> 40 </par>
+              <par name="SKEY_DX" type="double"> 50.0 </par>
+              <par name="SKEY_DY" type="double"> 0.0 </par>
+              <par name="XMIN" type="float"> 0.0 </par>
+              <par name="TMIN" type="float"> 0.0 </par>
+              <par name="TMAX" type="float"> 1000.0 </par>
+              <par name="SAMPRATE" type="float"> 2.0 </par>
+              <par name="CREATE_LONG_HDRS" type="boolean"> false </par>
+              <par name="RANDOMIZE_LIVE_TRACES" type="boolean"> false </par>
+              <par name="ADD_IMPULSE_EVENT" type="boolean"> false </par>
+              <par name="INDEX_IMPULSE" type="long"> 0 </par>
+              <parset name="EVENTS">
+                <par name="flowType" type="string"> PWFlow </par>
+                <parset name="flowParameters">
+                  <parset name="etc">
+                    <par name="show" type="boolean"> true </par>
+                  </parset>
+                  <parset name="EXEC">
+                    <parset name="etc">
+                    </parset>
+                    <parset name="PROCDESC">
+                      <par name="product" type="string"> PROWESS </par>
+                      <par name="collapse" type="boolean"> false </par>
+                      <par name="label" type="string"> com.lgc.prodesk.flowbuilder.menu.ExecutiveProc </par>
+                      <par name="name" type="string"> com.lgc.prodesk.flowbuilder.menu.ExecutiveProc </par>
+                      <par name="toolType" type="string"> NORMAL </par>
+                      <par name="type" type="string"> Java </par>
+                    </parset>
+                    <parset name="menuParameters">
+                      <par name="CHAINED" type="boolean"> false </par>
+                      <par name="PRECURSORS" type="string"> "" </par>
+                      <par name="OVERRIDE_XMX_VALUE" type="boolean"> false </par>
+                      <par name="JAVA_XMX_VALUE" type="long"> 2048 </par>
+                      <par name="OVERRIDE_SUBMIT_NODES" type="boolean"> false </par>
+                      <par name="NUMBER_NODES" type="int"> 1 </par>
+                      <par name="EXECS_PER_NODE" type="int"> 1 </par>
+                      <par name="RUN_AS_REPLICAS" type="boolean"> false </par>
+                      <par name="RUN_ALL_REPLICAS" type="boolean"> true </par>
+                      <par name="REP_SEQ1" type="int"> 1 </par>
+                      <par name="REP_SEQ2" type="int"> 1 </par>
+                    </parset>
+                    <parset name="parameterAttributes">
+                    </parset>
+                  </parset>
+                </parset>
+                <parset name="modules">
+                  <parset name="com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool #2">
+                    <par name="ToolName" type="string"> com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool </par>
+                    <par name="enabled" type="boolean"> true </par>
+                    <parset name="parameters">
+                      <parset name="etc">
+                      </parset>
+                      <parset name="PROCDESC">
+                        <par name="product" type="string"> PROWESS </par>
+                        <par name="collapse" type="boolean"> false </par>
+                        <par name="label" type="string"> com.lgc.prowess.tool.syntrgen.SynTrGen_RickerProc </par>
+                        <par name="name" type="string"> com.lgc.prowess.tool.syntrgen.SynTrGen_RickerProc </par>
+                        <par name="toolType" type="string"> NORMAL </par>
+                        <par name="type" type="string"> Java </par>
+                      </parset>
+                      <parset name="menuParameters">
+                        <par name="T0TIME" type="float"> 200.0 </par>
+                        <par name="MOVEOUT" type="int"> 2 </par>
+                        <par name="VELOCITY" type="float"> 2000.0 </par>
+                        <par name="DIP" type="float"> 2.0 </par>
+                        <par name="AMPLITUDE" type="float"> 1.0 </par>
+                        <par name="LENGWAVE" type="float"> 100.0 </par>
+                        <par name="PEAKFREQ" type="float"> 40.0 </par>
+                      </parset>
+                      <parset name="parameterAttributes">
+                      </parset>
+                    </parset>
+                  </parset>
+                  <parset name="com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool #3">
+                    <par name="ToolName" type="string"> com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool </par>
+                    <par name="enabled" type="boolean"> true </par>
+                    <parset name="parameters">
+                      <parset name="etc">
+                      </parset>
+                      <parset name="PROCDESC">
+                        <par name="product" type="string"> PROWESS </par>
+                        <par name="collapse" type="boolean"> false </par>
+                        <par name="label" type="string"> com.lgc.prowess.tool.syntrgen.SynTrGen_RickerProc </par>
+                        <par name="name" type="string"> com.lgc.prowess.tool.syntrgen.SynTrGen_RickerProc </par>
+                        <par name="toolType" type="string"> NORMAL </par>
+                        <par name="type" type="string"> Java </par>
+                      </parset>
+                      <parset name="menuParameters">
+                        <par name="T0TIME" type="float"> 500.0 </par>
+                        <par name="MOVEOUT" type="int"> 2 </par>
+                        <par name="VELOCITY" type="float"> 4000.0 </par>
+                        <par name="DIP" type="float"> 45.0 </par>
+                        <par name="AMPLITUDE" type="float"> 1.0 </par>
+                        <par name="LENGWAVE" type="float"> 100.0 </par>
+                        <par name="PEAKFREQ" type="float"> 40.0 </par>
+                      </parset>
+                      <parset name="parameterAttributes">
+                      </parset>
+                    </parset>
+                  </parset>
+                  <parset name="com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool #1">
+                    <par name="ToolName" type="string"> com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool </par>
+                    <par name="enabled" type="boolean"> true </par>
+                    <parset name="parameters">
+                      <parset name="etc">
+                      </parset>
+                      <parset name="PROCDESC">
+                        <par name="product" type="string"> PROWESS </par>
+                        <par name="collapse" type="boolean"> false </par>
+                        <par name="label" type="string"> Ricker </par>
+                        <par name="name" type="string"> com.lgc.prowess.tool.syntrgen.SynTrGen_RickerProc </par>
+                        <par name="toolType" type="string"> NORMAL </par>
+                        <par name="type" type="string"> Java </par>
+                      </parset>
+                      <parset name="menuParameters">
+                        <par name="T0TIME" type="float"> 600.0 </par>
+                        <par name="MOVEOUT" type="int"> 2 </par>
+                        <par name="VELOCITY" type="float"> 6000.0 </par>
+                        <par name="DIP" type="float"> 0.0 </par>
+                        <par name="AMPLITUDE" type="float"> 1.0 </par>
+                        <par name="LENGWAVE" type="float"> 100.0 </par>
+                        <par name="PEAKFREQ" type="float"> 40.0 </par>
+                      </parset>
+                      <parset name="parameterAttributes">
+                      </parset>
+                    </parset>
+                  </parset>
+                </parset>
+                <parset name="connections">
+                  <parset name="connection #2">
+                    <par name="dstPort" type="string"> default </par>
+                    <par name="srcPort" type="string"> default </par>
+                    <par name="dst" type="string"> "com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool #1" </par>
+                    <par name="src" type="string"> "com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool #3" </par>
+                  </parset>
+                  <parset name="connection #1">
+                    <par name="dstPort" type="string"> default </par>
+                    <par name="srcPort" type="string"> default </par>
+                    <par name="dst" type="string"> "com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool #3" </par>
+                    <par name="src" type="string"> "com.lgc.prowess.tool.syntrgen.SynTrGen_RickerTool #2" </par>
+                  </parset>
+                </parset>
+              </parset>
+              <parset name="IMPULSE_EVENT">
+                <par name="flowType" type="string"> PWFlow </par>
+                <parset name="flowParameters">
+                  <parset name="etc">
+                    <par name="show" type="boolean"> true </par>
+                  </parset>
+                  <parset name="EXEC">
+                    <parset name="etc">
+                    </parset>
+                    <parset name="PROCDESC">
+                      <par name="product" type="string"> PROWESS </par>
+                      <par name="collapse" type="boolean"> false </par>
+                      <par name="label" type="string"> com.lgc.prodesk.flowbuilder.menu.ExecutiveProc </par>
+                      <par name="name" type="string"> com.lgc.prodesk.flowbuilder.menu.ExecutiveProc </par>
+                      <par name="toolType" type="string"> NORMAL </par>
+                      <par name="type" type="string"> Java </par>
+                    </parset>
+                    <parset name="menuParameters">
+                      <par name="CHAINED" type="boolean"> false </par>
+                      <par name="PRECURSORS" type="string"> "" </par>
+                      <par name="OVERRIDE_XMX_VALUE" type="boolean"> false </par>
+                      <par name="JAVA_XMX_VALUE" type="long"> 2048 </par>
+                      <par name="OVERRIDE_SUBMIT_NODES" type="boolean"> false </par>
+                      <par name="NUMBER_NODES" type="int"> 1 </par>
+                      <par name="EXECS_PER_NODE" type="int"> 1 </par>
+                      <par name="RUN_AS_REPLICAS" type="boolean"> false </par>
+                      <par name="RUN_ALL_REPLICAS" type="boolean"> true </par>
+                      <par name="REP_SEQ1" type="int"> 1 </par>
+                      <par name="REP_SEQ2" type="int"> 1 </par>
+                    </parset>
+                    <parset name="parameterAttributes">
+                    </parset>
+                  </parset>
+                </parset>
+                <parset name="modules">
+                </parset>
+                <parset name="connections">
+                </parset>
+              </parset>
+            </parset>
+            <parset name="parameterAttributes">
+            </parset>
+          </parset>
+        </parset>
+        <parset name="THDRMATH #1">
+          <par name="ToolName" type="string"> THDRMATH </par>
+          <par name="enabled" type="boolean"> true </par>
+          <parset name="parameters">
+            <parset name="etc">
+            </parset>
+            <parset name="PROCDESC">
+              <par name="label" type="string"> "Trace Header Math" </par>
+              <par name="parallel_enabled" type="boolean"> false </par>
+              <par name="parallelizable" type="boolean"> true </par>
+              <par name="product" type="string"> PROMAXDEV </par>
+              <par name="collapse" type="boolean"> false </par>
+              <par name="ipmEnabled" type="boolean"> true </par>
+              <par name="name" type="string"> thdrmath </par>
+              <par name="toolType" type="string"> NORMAL </par>
+              <par name="type" type="string"> Lisp </par>
+              <par name="legalHybrid" type="boolean"> true </par>
+            </parset>
+            <parset name="MENUDATA">
+              <par name="MENUDATA" type="string"> "(:label\n^Trace Header Math^\n:enablep T\n:name THDRMATH\n:value_tab 60\n:plot_label T\n:rules ((((VALUE MODE)) MODE1 (= (VALUE (QUOTE MODE)) 1) (DO_SHOW (QUOTE OPERATE)) (DONT_SHOW (QUOTE OPERATE))) (((VALUE MODE)) MODE2 (= (VALUE (QUOTE MODE)) 2) (DO_SHOW (QUOTE (IENSTRC CHEADNAM STARTVAL INC_VAL IRESET))) (DONT_SHOW (QUOTE (IENSTRC CHEADNAM STARTVAL INC_VAL IRESET)))) (((VALUE MODE) (VALUE IRESET)) MODE2A (AND (= (VALUE (QUOTE MODE)) 2) (VALUE (QUOTE IRESET))) (DO_SHOW (QUOTE CHDRESET)) (DONT_SHOW (QUOTE CHDRESET))) (((VALUE MODE)) MODE3 (= (VALUE (QUOTE MODE)) 3) (DO_SHOW (QUOTE (ANGLE XSHIFT YSHIFT))) (DONT_SHOW (QUOTE (ANGLE XSHIFT YSHIFT)))) (((VALUE MODE)) MODE4 (= (VALUE (QUOTE MODE)) 4) (DO_SHOW (QUOTE (WARNING IVALID IGEOM IDTYP IDOMAIN ISORT))) (DONT_SHOW (QUOTE (WARNING IVALID IGEOM IDTYP IDOMAIN ISORT)))))\n:exec_data (EVAL (COND ((= (VALUE (QUOTE MODE)) 1) (QUOTE (^THDRMATH^ (^GENERAL^ (^version^ :implicit ^:ProMAX $Id thdrmath.menu 46125 2010-11-30 01:11:19Z Gary :Wong $ $Revision :46125 $ $Date 2010-11-29 18:11:19 -0700 (Mon, 29 Nov 2010) $^) (^OPERATE^ :implicit (VALUE (QUOTE OPERATE))))))) ((= (VALUE (QUOTE MODE)) 2) (QUOTE (^HEADER_RENUM^ (^GENERAL^ (^IENSTRC^ :implicit (VALUE (QUOTE IENSTRC))) (^CHEADNAM^ :implicit (VALUE (QUOTE CHEADNAM))) (^STARTVAL^ :implicit (VALUE (QUOTE STARTVAL))) (^INC_VAL^ :implicit (VALUE (QUOTE INC_VAL))) (^IRESET^ :implicit (IF (VALUE (QUOTE IRESET)) 1 0)) (^CHDRESET^ :implicit (VALUE (QUOTE CHDRESET))))))) ((= (VALUE (QUOTE MODE)) 3) (QUOTE (^ROTATE^ (^GENERAL^ (^ANGLE  ^ :implicit (VALUE (QUOTE ANGLE))) (^XSHIFT ^ :implicit (VALUE (QUOTE XSHIFT))) (^YSHIFT ^ :implicit (VALUE (QUOTE YSHIFT))))))) ((= (VALUE (QUOTE MODE)) 4) (QUOTE (^DEITY^ (^GENERAL^ (^IVALID ^ :implicit (VALUE (QUOTE IVALID))) (^IGEOM  ^ :implicit (VALUE (QUOTE IGEOM))) (^IDOMAIN^ :implicit (VALUE (QUOTE IDOMAIN))) (^IDTYP  ^ :implicit (VALUE (QUOTE IDTYP))) (^ISORT  ^ :implicit (VALUE (QUOTE ISORT))))))))):parameter MODE\n:text ^Select mode^\n:plot_label T\n:type :pop_choose\n:type_desc ((^Fixed equation mode^ 1 ^Define a fixed equation. (DO NOT ATTEMPT TO CHANGE THE FORMAT OF EXISTING PROMAX HEADER WORDS; e.g. CHAN=1.0)^) (^Sequence renumber mode^ 2 ^Renumber sequences.^) (^Rotation &amp; Translation^ 3 ^Coordinate translation and rotation.^) (^Change data attributes^ 4 ^Change global data parameters.^))\n:selected_item (^Fixed equation mode^ 1 ^Define a fixed equation. (DO NOT ATTEMPT TO CHANGE THE FORMAT OF EXISTING PROMAX HEADER WORDS; e.g. CHAN=1.0)^)\n:value 1\n:mouse_text ^Select the math mode.^\n:parameter OPERATE\n:text ^  DEFINE trace header equation(s)^\n:plot_label T\n:type :edit\n:type_desc (25 NIL 5 ^ :FORMAT C=A+B-C; C=NINT(A/B)+MOD(A,B); C=A*((B**2.0)/C+1.0)\n (Use semicolons to separate equations; See Help \'?\')\n\n EXAMPLES: NEW_ELEV = REC_ELEV + 100.0; SOU_SLOC = NINT(SOU_X) / 55\n HELP: EMACS Editor Widget (scroll with down/up arrow keys)\n CURSOR MOVEMENT: Use the arrow keys:->,&lt;-,etc.;Point the mouse cursor,click B1\n CM: Ctrl-A\t\tMove the cursor to the BEGINNING of the current line\n CM: Ctrl-E\t\tMove the cursor to the END of the current line\n EDITING: All keyboard entry is in \'insert\' mode\n E:  Backspace, Delete keys\tDelete one character to the LEFT of the cursor\n E:  Ctrl-D\t\t\tDelete one character to the RIGHT of the cursor\n E:  Ctrl-K\t\tKILL to the end of the line (from the cursor)\n E:  Ctrl-Y\t\tYANK back the contents of the kill buffer; \'Cut and \n\t\t\t  paste\'; (Can move the cursor first) ^ 5)\n:value ^filterid=0^\n:mouse_text ^Use MB1 to access the text editor and define equations to overwrite old header words or create new ones.^\n:parameter IENSTRC\n:text ^  Renumber ensembles or traces?^\n:plot_label T\n:type :circular\n:type_desc ((^ENSEMBLES^ 1 ^Renumber ensembles in the order in which they are input.^) (^TRACES ^ 2 ^Renumber headers of traces within ensembles, renumbering starts at the begining of each ensemble.^))\n:selected_item (^ENSEMBLES^ 1 ^Renumber ensembles in the order in which they are input.^)\n:value 1\n:showp NIL\n:mouse_text ^You can renumber either the ensemble number or the traces within ensembles.^\n:parameter CHEADNAM\n:text ^  SELECT trace header word^\n:plot_label T\n:type :function\n:type_desc (HEADER_LIST HEADERS)\n:selected_item ^REPEATED data copy number^\n:value ^REPEAT  ^\n:showp NIL\n:mouse_text ^Use MB1 to select a header word from the headers menu as the HEADER NAME key for renumbering.^\n:parameter STARTVAL\n:text ^  Starting value^\n:plot_label T\n:type :typein\n:type_desc (:string 12)\n:value ^no default^\n:showp NIL\n:mouse_text ^Value to assign to first trace header encountered, entry for floating point trace headers MUST include a decimal.^\n:parameter INC_VAL\n:text ^  Increment value^\n:plot_label T\n:type :typein\n:type_desc (:string 12)\n:value ^no default^\n:showp NIL\n:mouse_text ^Value by which to increment successive headers, entry for floating point header values MUST include a decimal.^\n:parameter IRESET\n:text ^  Reset the Starting value at header change?^\n:plot_label T\n:type :boolean\n:type_desc ((^Yes ^ T) (^No^ NIL))\n:selected_item (^No^ NIL)\n:showp NIL\n:mouse_text ^ Do you want to reset the renumber counter to the Starting value when a different trace header changes value?^\n:parameter CHDRESET\n:text ^  SELECT reset renumber trace header word^\n:plot_label T\n:type :function\n:type_desc (HEADER_LIST HEADERS)\n:selected_item ^Swath or sail line number^\n:value ^S_LINE  ^\n:showp NIL\n:mouse_text ^Use MB1 to select a header word from the headers menu as the HEADER NAME key for resetting.^\n:parameter ANGLE\n:text ^  Rotation angle^\n:plot_label T\n:type :typein\n:type_desc (:real 8 0.0 360.0)\n:value 0.0\n:showp NIL\n:mouse_text ^Clockwise rotation angle of new coordinate relative to the original axes. (0.0 - 360.0 degrees)^\n:parameter XSHIFT\n:text ^  X coordinate shift^\n:plot_label T\n:type :typein\n:type_desc (:real 8 NIL NIL)\n:value 0.0\n:showp NIL\n:mouse_text ^Value of X coordinate in old system of the new, translated origin.  (0.0 = no shift in X position)^\n:parameter YSHIFT\n:text ^  Y coordinate shift^\n:plot_label T\n:type :typein\n:type_desc (:real 8 NIL NIL)\n:value 0.0\n:showp NIL\n:mouse_text ^Value of Y coordinate in the old system of the new, translated origin.  (0.0 = no shift in Y position)^\n:parameter WARNING\n:text ^** CHANGE THESE ONLY IF YOU UNDERSTAND THE CONSEQUENCES **^\n:showp NIL\n:parameter IVALID\n:text ^  Trace number valid?^\n:plot_label T\n:type :pop_choose\n:type_desc ((^No change^ -1 ^Leave flag as is.^) (^Valid    ^ 1 ^Trace numbers are valid and can be used to reference the database.^) (^Invalid  ^ 0 ^Trace numbers are NOT valid and can not be used to reference the database.^))\n:selected_item (^No change^ -1 ^Leave flag as is.^)\n:value -1\n:showp NIL\n:mouse_text ^Set the global runtime flag for valid database. (i.e. trace numbers are unique and match the database)^\n:parameter IGEOM\n:text ^  Geometry valid?^\n:plot_label T\n:type :pop_choose\n:type_desc ((^No change^ -1 ^Leave flag as is.^) (^Valid    ^ 1 ^Geometry loaded in the trace header match the database.^) (^Invalid  ^ 0 ^Geometry loaded in the trace header do NOT match the database.^))\n:selected_item (^No change^ -1 ^Leave flag as is.^)\n:value -1\n:showp NIL\n:mouse_text ^Set the global runtime flag for valid geometry. (i.e. geometry in the trace headers matches the database)^\n:parameter IDOMAIN\n:text ^  Domain of data^\n:plot_label T\n:type :pop_choose\n:type_desc ((^No change ^ -1 ^Leave flag as is.^) (^T-X       ^ 0 ^Normal time-space domain.^) (^F-X       ^ 1 ^Frequency-space domain.^) (^F-T       ^ 2 ^Frequency-time domain.^) (^F-K       ^ 3 ^Frequency-wavenumber domain.^) (^Tau-P     ^ 4 ^Tau-P (time-ray-parameter) domain.^) (^Depth     ^ 7 ^Depth-space domain.^))\n:selected_item (^No change ^ -1 ^Leave flag as is.^)\n:value -1\n:showp NIL\n:mouse_text ^Select new data type.^\n:parameter IDTYP\n:text ^  Data type^\n:plot_label T\n:type :pop_choose\n:type_desc ((^No change           ^ -1 ^Leave flag as is.^) (^Normal unstacked    ^ 0 ^Normal unstacked data.^) (^Normal stacked      ^ 7 ^Normal stacked data.^) (^Unstacked trasformed^ 2 ^Transformed unstacked - e.g., frequency dom. - data^) (^Stacked transformed ^ 3 ^Transformed stacked - e.g., frequency domain - data^))\n:selected_item (^No change           ^ -1 ^Leave flag as is.^)\n:value -1\n:showp NIL\n:mouse_text ^Select data type.^\n:parameter ISORT\n:text ^  Primary sort of data^\n:plot_label T\n:type :pop_choose\n:type_desc ((^No change   ^ -1 ^Leave flag as is.^) (^CDP Sort    ^ 1 ^CDP bin number sorted data.^) (^SIN Sort    ^ 2 ^Shot index number sorted data.^) (^RECSLOC Sort^ 3 ^Receiver surface station sorted data.^) (^Offset Sort ^ 4 ^Shot to receiver signed offset sorted data.^) (^CHAN Sort   ^ 5 ^Channel number sorted data.^) (^ILINE Sort  ^ 7 ^Inline number sorted data.^) (^XLINE Sort  ^ 8 ^Crossline number sorted data.^))\n:selected_item (^No change   ^ -1 ^Leave flag as is.^)\n:value -1\n:showp NIL\n:mouse_text ^Select new primary sort order.^\n)\n" </par>
+            </parset>
+            <parset name="parameterAttributes">
+            </parset>
+            <parset name="execParameters">
+              <parset name="THDRMATH #0">
+                <parset name="GENERAL">
+                  <par name="version" type="string"> ":ProMAX $Id thdrmath.menu 46125 2010-11-30 01:11:19Z Gary :Wong $ $Revision :46125 $ $Date 2010-11-29 18:11:19 -0700 (Mon, 29 Nov 2010) $" </par>
+                  <par name="OPERATE" type="string"> filterid=0 </par>
+                </parset>
+              </parset>
+            </parset>
+          </parset>
+        </parset>
+        <parset name="com.lgc.prowess.tool.filter.FilterTool #1">
+          <par name="ToolName" type="string"> com.lgc.prowess.tool.filter.FilterTool </par>
+          <par name="enabled" type="boolean"> false </par>
+          <parset name="parameters">
+            <parset name="etc">
+            </parset>
+            <parset name="PROCDESC">
+              <par name="name" type="string"> com.lgc.prowess.tool.filter.FilterProc </par>
+              <par name="type" type="string"> Java </par>
+              <par name="product" type="string"> PROWESS </par>
+              <par name="label" type="string"> "Bandpass Filter" </par>
+              <par name="toolType" type="string"> NORMAL </par>
+              <par name="collapse" type="boolean"> true </par>
+            </parset>
+            <parset name="menuParameters">
+              <par name="FLT_TYPE" type="int"> 1 </par>
+              <par name="FLT_SPEC" type="int"> 1 </par>
+              <par name="PHASE" type="int"> 1 </par>
+              <par name="RNOISE" type="float"> 1.0 </par>
+              <par name="IDOMAIN" type="int"> 2 </par>
+              <par name="FILT_LEN" type="float"> 160.0 </par>
+              <par name="PCT_PAD" type="float"> 25.0 </par>
+              <par name="NOTCH_OPTION" type="boolean"> false </par>
+              <par name="F_NOTCH" type="float"> 60.0 </par>
+              <par name="N_F_WIDE" type="float"> 4.0 </par>
+              <par name="NSEARCH_OPTION" type="boolean"> false </par>
+              <par name="FREQSCAN" type="float"> 3.0 </par>
+              <par name="FLT_FREQ1" type="string"> 8-12.5-40-50 </par>
+              <par name="FLT_FREQ2" type="string"> 8-18-40-72 </par>
+              <par name="FLT_PARM1" type="string"> 1:0:5-10-40-50,10-14-70-90/1:5280:5-10-35-42,8-12-60-75/ </par>
+              <par name="FLT_PARM2" type="string"> 1:0:10-18-40-72,14-18-70-72/1:5280:10-18-35-72,12-18-60-72/ </par>
+              <par name="GATE_SOURCE" type="string"> Database </par>
+              <par name="GATENAME" type="string"> NONE </par>
+              <par name="GATENAME_DB" type="string"> NONE </par>
+              <par name="PRIM_KEY" type="string"> SOURCE </par>
+              <par name="SCND_KEY" type="string"> OFFSET </par>
+              <par name="FLT_GATE" type="string"> 1:0:0-1500,2000-4000/1:5280:0-2500,3000-4000/ </par>
+              <par name="REMUTE_OPTION" type="boolean"> true </par>
+            </parset>
+            <parset name="parameterAttributes">
+            </parset>
+          </parset>
+        </parset>
+        <parset name="com.lgc.prowess.tool.contexteditor.DataContextEditorTool #2">
+          <par name="ToolName" type="string"> com.lgc.prowess.tool.contexteditor.DataContextEditorTool </par>
+          <par name="enabled" type="boolean"> true </par>
+          <parset name="parameters">
+            <parset name="etc">
+            </parset>
+            <parset name="PROCDESC">
+              <par name="name" type="string"> com.lgc.prowess.tool.contexteditor.DataContextEditorProc </par>
+              <par name="type" type="string"> Java </par>
+              <par name="product" type="string"> PROWESS </par>
+              <par name="label" type="string"> "Data Context Editor" </par>
+              <par name="toolType" type="string"> NORMAL </par>
+              <par name="collapse" type="boolean"> false </par>
+            </parset>
+            <parset name="menuParameters">
+              <par name="DESCRIPTION" type="string"> &lt;none> </par>
+              <par name="DATA_TYPE" type="string"> CMP </par>
+              <par name="IS_STACKED" type="boolean"> false </par>
+              <par name="IS_SYNTHETIC" type="boolean"> false </par>
+              <par name="DATA_DIMENSIONS" type="int"> 5 </par>
+              <par name="PROMAX_DOMAIN" type="string"> T-X </par>
+              <par name="PRIMARY_SORT" type="string"> cdp </par>
+              <par name="PRIMARY_KEY" type="string"> CDP </par>
+              <par name="SECONDARY_KEY" type="string"> OFFSET </par>
+              <par name="TRACENO_VALID" type="boolean"> false </par>
+              <par name="GEOM_MATCHES" type="boolean"> false </par>
+              <par name="AXIS_LABEL0" type="string"> TIME_IND </par>
+              <par name="DOMAIN0" type="string"> time </par>
+              <par name="UNITS0" type="string"> milliseconds </par>
+              <par name="LOGICAL_ORIGIN0" type="long"> 0 </par>
+              <par name="LOGICAL_MAX0" type="long"> 500 </par>
+              <par name="LOGICAL_DELTA0" type="long"> 1 </par>
+              <par name="AXIS_LENGTH0" type="long"> 501 </par>
+              <par name="PHYSICAL_ORIGIN0" type="double"> 0.0 </par>
+              <par name="PHYSICAL_MAX0" type="double"> 1000.0 </par>
+              <par name="PHYSICAL_DELTA0" type="double"> 2.0 </par>
+              <par name="AXIS_LABEL1" type="string"> SEQNO </par>
+              <par name="DOMAIN1" type="string"> space </par>
+              <par name="UNITS1" type="string"> feet </par>
+              <par name="LOGICAL_ORIGIN1" type="long"> 1 </par>
+              <par name="LOGICAL_MAX1" type="long"> 40 </par>
+              <par name="LOGICAL_DELTA1" type="long"> 1 </par>
+              <par name="AXIS_LENGTH1" type="long"> 40 </par>
+              <par name="PHYSICAL_ORIGIN1" type="double"> 0.0 </par>
+              <par name="PHYSICAL_MAX1" type="double"> 1950.0 </par>
+              <par name="PHYSICAL_DELTA1" type="double"> 50.0 </par>
+              <par name="AXIS_LABEL2" type="string"> XLINE_NO </par>
+              <par name="DOMAIN2" type="string"> space </par>
+              <par name="UNITS2" type="string"> feet </par>
+              <par name="LOGICAL_ORIGIN2" type="long"> 2000 </par>
+              <par name="LOGICAL_MAX2" type="long"> 2002 </par>
+              <par name="LOGICAL_DELTA2" type="long"> 1 </par>
+              <par name="AXIS_LENGTH2" type="long"> 3 </par>
+              <par name="PHYSICAL_ORIGIN2" type="double"> 0.0 </par>
+              <par name="PHYSICAL_MAX2" type="double"> 100.0 </par>
+              <par name="PHYSICAL_DELTA2" type="double"> 50.0 </par>
+              <par name="AXIS_LABEL3" type="string"> ILINE_NO </par>
+              <par name="DOMAIN3" type="string"> space </par>
+              <par name="UNITS3" type="string"> feet </par>
+              <par name="LOGICAL_ORIGIN3" type="long"> 1000 </par>
+              <par name="LOGICAL_MAX3" type="long"> 1002 </par>
+              <par name="LOGICAL_DELTA3" type="long"> 1 </par>
+              <par name="AXIS_LENGTH3" type="long"> 3 </par>
+              <par name="PHYSICAL_ORIGIN3" type="double"> 0.0 </par>
+              <par name="PHYSICAL_MAX3" type="double"> 100.0 </par>
+              <par name="PHYSICAL_DELTA3" type="double"> 50.0 </par>
+              <par name="AXIS_LABEL4" type="string"> FILTERID </par>
+              <par name="DOMAIN4" type="string"> unknown </par>
+              <par name="UNITS4" type="string"> unknown </par>
+              <par name="LOGICAL_ORIGIN4" type="long"> 0 </par>
+              <par name="LOGICAL_MAX4" type="long"> 1 </par>
+              <par name="LOGICAL_DELTA4" type="long"> 1 </par>
+              <par name="AXIS_LENGTH4" type="long"> 2 </par>
+              <par name="PHYSICAL_ORIGIN4" type="double"> 0.0 </par>
+              <par name="PHYSICAL_MAX4" type="double"> -999.0 </par>
+              <par name="PHYSICAL_DELTA4" type="double"> 1.0 </par>
+              <par name="RESET_DEFAULTS" type="string"> Reset </par>
+              <par name="INIT_TIME" type="string"> "&lt;not run>" </par>
+              <par name="RESETTING_DEFAULTS" type="boolean"> false </par>
+            </parset>
+            <parset name="parameterAttributes">
+            </parset>
+          </parset>
+        </parset>
+        <parset name="com.lgc.prowess.tool.tracedisplay.TraceDisplayTool #1">
+          <par name="ToolName" type="string"> com.lgc.prowess.tool.tracedisplay.TraceDisplayTool </par>
+          <par name="enabled" type="boolean"> false </par>
+          <parset name="parameters">
+            <parset name="etc">
+            </parset>
+            <parset name="PROCDESC">
+              <par name="name" type="string"> com.lgc.prowess.tool.tracedisplay.TraceDisplayProc </par>
+              <par name="type" type="string"> Java </par>
+              <par name="product" type="string"> PROWESS </par>
+              <par name="label" type="string"> "Trace Display" </par>
+              <par name="toolType" type="string"> NORMAL </par>
+              <par name="collapse" type="boolean"> true </par>
+            </parset>
+            <parset name="menuParameters">
+              <par name="ENSEMBLES_PER_SCREEN" type="int"> 1 </par>
+              <par name="ENSEMBLE_GAP" type="int"> 1 </par>
+              <par name="BACKUP_SCREEN_COUNT" type="int"> 1 </par>
+              <par name="MOVIE_AUTO_ADD_SCREENS" type="boolean"> true </par>
+              <par name="MOVIE_SCREEN_MAX" type="int"> 10 </par>
+              <par name="MOVIE_AUTO_COLLECT_COUNT" type="int"> 1 </par>
+              <par name="Primary_Label" type="string"> NONE </par>
+              <par name="Secondary_Label" type="string"> NONE </par>
+              <par name="Secondary_Annotation_Mode" type="int"> 2 </par>
+              <par name="Secondary_Annotation_Increment" type="int"> 5 </par>
+              <par name="Header_Plot_Parameter" type="string"> NONE </par>
+              <par name="FRAME_SORT_KEY" type="string"> NONE </par>
+              <parset name="DISPLAY_OPTIONS">
+                <par name="WIGGLE_SKIP" type="int"> 1 </par>
+                <par name="START_TRACE" type="int"> 0 </par>
+                <par name="END_TIME" type="float"> 0.0 </par>
+                <par name="FLIP_COLOR_PALETTE" type="boolean"> false </par>
+                <par name="WIGGLE" type="boolean"> false </par>
+                <par name="NORMALIZATION_GRANULARITY" type="int"> 0 </par>
+                <par name="VERTICAL_INTERPOLATION" type="int"> 3 </par>
+                <par name="VARIABLE_AREA_TYPE" type="int"> 0 </par>
+                <par name="RANGEMAX" type="float"> 0.0 </par>
+                <par name="USE_PERCENTAGE_ENSEMBLE_WIDTHS" type="boolean"> false </par>
+                <par name="RANGE_WAS_SET_BY_USER" type="boolean"> false </par>
+                <par name="COLOR_PALETTE_NAME" type="string"> GreyscaleInvert </par>
+                <par name="START_TIME" type="float"> 0.0 </par>
+                <par name="VA_BASE" type="float"> 0.0 </par>
+                <par name="BIAS" type="float"> 0.0 </par>
+                <par name="SCALE" type="float"> 1.0 </par>
+                <par name="NORMALIZATION" type="int"> 5 </par>
+                <par name="NORMALIZATION_RECTANGLE" type="float"/>
+                <par name="VARIABLE_AREA" type="boolean"> false </par>
+                <par name="INTERLEAVE" type="int"> 0 </par>
+                <par name="PIXELS_PER_TRACE" type="int"> 10 </par>
+                <par name="RIGHT_POLARITY" type="boolean"> true </par>
+                <par name="HORIZONTAL_INTERPOLATION" type="int"> 1 </par>
+                <par name="USE_VARIABLE_TRACE_SPACING" type="boolean"> false </par>
+                <par name="CLIP" type="float"> 2.0 </par>
+                <par name="VARIABLE_DENSITY" type="boolean"> true </par>
+                <par name="BASELINE" type="boolean"> false </par>
+                <par name="RANGEMIN" type="float"> 0.0 </par>
+                <par name="LEFT_TO_RIGHT" type="boolean"> true </par>
+                <par name="COLOR_FILE" type="string"> "" </par>
+                <par name="PERCENTILE" type="int"> 98 </par>
+                <par name="END_TRACE" type="int"> 0 </par>
+              </parset>
+            </parset>
+            <parset name="parameterAttributes">
+            </parset>
+          </parset>
+        </parset>
+        <parset name="com.lgc.prowess.javaseis.cop.JavaSeisOutTool #1">
+          <par name="ToolName" type="string"> com.lgc.prowess.javaseis.cop.JavaSeisOutTool </par>
+          <par name="enabled" type="boolean"> true </par>
+          <parset name="parameters">
+            <parset name="etc">
+            </parset>
+            <parset name="PROCDESC">
+              <par name="name" type="string"> com.lgc.prowess.javaseis.cop.JavaSeisOutProc </par>
+              <par name="type" type="string"> Java </par>
+              <par name="product" type="string"> PROWESS </par>
+              <par name="label" type="string"> "JavaSeis Data Output" </par>
+              <par name="toolType" type="string"> NORMAL </par>
+              <par name="collapse" type="boolean"> false </par>
+            </parset>
+            <parset name="menuParameters">
+              <par name="DATA_SOURCE" type="string"> FILEPATH </par>
+              <par name="DATA_SELECTOR" type="string"> NONE </par>
+              <par name="FILEPATH" type="string"> /data/esdrd/eyms/python/pyjseisio/swigPythonTest/test/synth.js </par>
+              <par name="OW_SURVEY" type="string"> NONE </par>
+              <par name="OW_DATA" type="string"> NONE </par>
+              <par name="GEOPROBE_DATA" type="string"> NONE </par>
+              <par name="JAVASEIS_TABLE" type="string"> NONE </par>
+              <par name="refresh" type="string"> Refresh </par>
+              <par name="TRACE_FORMAT_OPT" type="string"> COMPRESSED_INT16 </par>
+              <par name="SEISPEG_DISTORTION" type="float"> 0.05 </par>
+              <par name="SEISPEG_POLICY" type="string"> MAX_COMPRESSION </par>
+              <par name="LOST_DATA_POLICY" type="string"> 2 </par>
+              <par name="FRAME_MERGE_POLICY" type="string"> 0 </par>
+              <par name="IS_VIRTUAL_OPT" type="boolean"> false </par>
+              <par name="EXTENT_POLICY_OPT" type="string"> RANDOM </par>
+              <par name="ALWAYS_RECREATE" type="boolean"> false </par>
+              <par name="CREATE_IF_ABSENT" type="boolean"> true </par>
+              <par name="RECREATE_BUTTON" type="string"> Create </par>
+              <par name="ALWAYS_RECREATE_OVERRIDE" type="boolean"> false </par>
+              <par name="NENS" type="string"> unknown </par>
+              <par name="NTRENS" type="string"> unknown </par>
+              <par name="NSAMPTR" type="string"> unknown </par>
+              <par name="SAMP_RATE" type="string"> unknown </par>
+              <par name="CDP_RANGE" type="string"> unknown </par>
+              <par name="SIN_RANGE" type="string"> unknown </par>
+              <par name="DATA_TYPE" type="string"> CMP </par>
+              <par name="TRACE_FORMAT" type="string"> COMPRESSED_INT16 </par>
+              <par name="AXIS_OPTION" type="string"> Logical </par>
+              <par name="HYPERCUBE_RANGE" type="string"> "0-1 (1) : 2" </par>
+              <par name="VOLUME_RANGE" type="string"> "1000-1002 (1) : 3" </par>
+              <par name="FRAME_RANGE" type="string"> "2000-2002 (1) : 3" </par>
+              <par name="TRACE_RANGE" type="string"> "1-40 (1) : 40" </par>
+              <par name="SAMPLE_RANGE" type="string"> "0.0-1000.0 (2.0) : 501" </par>
+              <par name="NTRACES_FRAMEWORK" type="string"> 720 </par>
+              <par name="ESTIMATED_SIZE" type="string"> "704.676 KB" </par>
+              <par name="ADVANCED_OPT" type="boolean"> false </par>
+              <par name="SCAN_DATASET" type="boolean"> false </par>
+              <par name="MAX_EXTENT_COUNT" type="int"> 0 </par>
+              <par name="COMPUTED_EXTENT_COUNT" type="string"> 8 </par>
+              <par name="ESTIMATED_SEGMENT_SIZE" type="string"> "88.084 KB" </par>
+              <par name="CAPSULE_SELECT" type="string"> &lt;DEFAULT> </par>
+            </parset>
+            <parset name="parameterAttributes">
+            </parset>
+          </parset>
+        </parset>
+        <parset name="com.lgc.prowess.javaseis.cop.JavaSeisOutTool #2">
+          <par name="ToolName" type="string"> com.lgc.prowess.javaseis.cop.JavaSeisOutTool </par>
+          <par name="enabled" type="boolean"> false </par>
+          <parset name="parameters">
+            <parset name="etc">
+            </parset>
+            <parset name="PROCDESC">
+              <par name="name" type="string"> com.lgc.prowess.javaseis.cop.JavaSeisOutProc </par>
+              <par name="type" type="string"> Java </par>
+              <par name="product" type="string"> PROWESS </par>
+              <par name="label" type="string"> "JavaSeis Data Output" </par>
+              <par name="toolType" type="string"> NORMAL </par>
+              <par name="collapse" type="boolean"> true </par>
+            </parset>
+            <parset name="menuParameters">
+              <par name="DATA_SOURCE" type="string"> DATA_SELECTOR </par>
+              <par name="FILEPATH" type="string"> /data/esdrd/eyms/python/pyjseisio/swigPythonTest/test/synth.js </par>
+              <par name="OW_SURVEY" type="string"> NONE </par>
+              <par name="OW_DATA" type="string"> NONE </par>
+              <par name="GEOPROBE_DATA" type="string"> NONE </par>
+              <par name="JAVASEIS_TABLE" type="string"> NONE </par>
+              <par name="refresh" type="string"> Refresh </par>
+              <par name="TRACE_FORMAT_OPT" type="string"> COMPRESSED_INT16 </par>
+              <par name="SEISPEG_DISTORTION" type="float"> 0.05 </par>
+              <par name="SEISPEG_POLICY" type="string"> MAX_COMPRESSION </par>
+              <par name="LOST_DATA_POLICY" type="string"> 2 </par>
+              <par name="FRAME_MERGE_POLICY" type="string"> 0 </par>
+              <par name="IS_VIRTUAL_OPT" type="boolean"> false </par>
+              <par name="EXTENT_POLICY_OPT" type="string"> RANDOM </par>
+              <par name="ALWAYS_RECREATE" type="boolean"> false </par>
+              <par name="CREATE_IF_ABSENT" type="boolean"> true </par>
+              <par name="RECREATE_BUTTON" type="string"> Create </par>
+              <par name="ALWAYS_RECREATE_OVERRIDE" type="boolean"> false </par>
+              <par name="NENS" type="string"> unknown </par>
+              <par name="NTRENS" type="string"> unknown </par>
+              <par name="NSAMPTR" type="string"> unknown </par>
+              <par name="SAMP_RATE" type="string"> unknown </par>
+              <par name="CDP_RANGE" type="string"> unknown </par>
+              <par name="SIN_RANGE" type="string"> unknown </par>
+              <par name="DATA_TYPE" type="string"> CMP </par>
+              <par name="TRACE_FORMAT" type="string"> COMPRESSED_INT16 </par>
+              <par name="AXIS_OPTION" type="string"> Logical </par>
+              <par name="HYPERCUBE_RANGE" type="string"> "0-1 (1) : 2" </par>
+              <par name="VOLUME_RANGE" type="string"> "1000-1002 (1) : 3" </par>
+              <par name="FRAME_RANGE" type="string"> "2000-2002 (1) : 3" </par>
+              <par name="TRACE_RANGE" type="string"> "1-40 (1) : 40" </par>
+              <par name="SAMPLE_RANGE" type="string"> "0.0-1000.0 (2.0) : 501" </par>
+              <par name="NTRACES_FRAMEWORK" type="string"> 720 </par>
+              <par name="ESTIMATED_SIZE" type="string"> "704.676 KB" </par>
+              <par name="ADVANCED_OPT" type="boolean"> false </par>
+              <par name="SCAN_DATASET" type="boolean"> false </par>
+              <par name="MAX_EXTENT_COUNT" type="int"> 0 </par>
+              <par name="COMPUTED_EXTENT_COUNT" type="string"> 8 </par>
+              <par name="ESTIMATED_SEGMENT_SIZE" type="string"> "88.084 KB" </par>
+              <par name="CAPSULE_SELECT" type="string"> &lt;DEFAULT> </par>
+              <parset name="DATA_SELECTOR">
+                <par name="DESCRIPTION" type="string"> temp </par>
+                <par name="SOURCE" type="string"> DATA_SELECTOR </par>
+                <par name="RELATIVE_PATH" type="string"> temp.js </par>
+              </parset>
+            </parset>
+            <parset name="parameterAttributes">
+            </parset>
+          </parset>
+        </parset>
+      </parset>
+      <parset name="connections">
+        <parset name="connection #6">
+          <par name="dstPort" type="string"> default </par>
+          <par name="srcPort" type="string"> default </par>
+          <par name="dst" type="string"> "com.lgc.prowess.javaseis.cop.JavaSeisOutTool #2" </par>
+          <par name="src" type="string"> "com.lgc.prowess.javaseis.cop.JavaSeisOutTool #1" </par>
+        </parset>
+        <parset name="connection #5">
+          <par name="dstPort" type="string"> default </par>
+          <par name="srcPort" type="string"> default </par>
+          <par name="dst" type="string"> "com.lgc.prowess.javaseis.cop.JavaSeisOutTool #1" </par>
+          <par name="src" type="string"> "com.lgc.prowess.tool.tracedisplay.TraceDisplayTool #1" </par>
+        </parset>
+        <parset name="connection #4">
+          <par name="dstPort" type="string"> default </par>
+          <par name="srcPort" type="string"> default </par>
+          <par name="dst" type="string"> "com.lgc.prowess.tool.tracedisplay.TraceDisplayTool #1" </par>
+          <par name="src" type="string"> "com.lgc.prowess.tool.contexteditor.DataContextEditorTool #2" </par>
+        </parset>
+        <parset name="connection #3">
+          <par name="dstPort" type="string"> default </par>
+          <par name="srcPort" type="string"> default </par>
+          <par name="dst" type="string"> "com.lgc.prowess.tool.contexteditor.DataContextEditorTool #2" </par>
+          <par name="src" type="string"> "com.lgc.prowess.tool.filter.FilterTool #1" </par>
+        </parset>
+        <parset name="connection #2">
+          <par name="dstPort" type="string"> default </par>
+          <par name="srcPort" type="string"> default </par>
+          <par name="dst" type="string"> "com.lgc.prowess.tool.filter.FilterTool #1" </par>
+          <par name="src" type="string"> "THDRMATH #1" </par>
+        </parset>
+        <parset name="connection #1">
+          <par name="dstPort" type="string"> default </par>
+          <par name="srcPort" type="string"> default </par>
+          <par name="dst" type="string"> "THDRMATH #1" </par>
+          <par name="src" type="string"> "com.lgc.prowess.tool.syntrgen.JSSynTrGenTool #1" </par>
+        </parset>
+      </parset>
+    </parset>
+  </parset>
+  <parset name="METADATA">
+  </parset>
+</parset>
