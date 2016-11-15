@@ -5,9 +5,9 @@
 
 %{
 #define SWIG_FILE_WITH_INIT
-#include "../../jseisIO/src/jsFileReader.h"
-#include "../../jseisIO/src/jsByteOrder.h"
-#include "../../jseisIO/src/catalogedHdrEntry.h"
+#include "../src/jsFileReader.h"
+#include "../src/jsByteOrder.h"
+#include "../src/catalogedHdrEntry.h"
 using namespace jsIO;
 %}
 
@@ -38,9 +38,9 @@ import_array();
 
 
 %feature("autodoc", "1");
-%include ../../jseisIO/src/jsFileReader.h
-%include "../../jseisIO/src/catalogedHdrEntry.h"
-%include "../../jseisIO/src/jsByteOrder.h"
+%include ../src/jsFileReader.h
+%include "../src/catalogedHdrEntry.h"
+%include "../src/jsByteOrder.h"
 
 
 

@@ -92,20 +92,6 @@ class jsdataset(object):
     def getNumOfExtents(self): return self.reader.getNumOfExtents()
     def getNumOfVirtualFolders(self): return self.reader.getNumOfVirtualFolders()
 
-#
-#    def liveToGlobalTraceIndex(self, *args):
-#        """liveToGlobalTraceIndex(jsFileReader self, long const _liveTraceIndex, long & _globalTraceIndex) -> int"""
-#        return _pyjseisio.jsFileReader_liveToGlobalTraceIndex(self, *args)
-#
-#    def getNumOfLiveTraces(self, *args):
-#        """getNumOfLiveTraces(jsFileReader self, int _frameIndex) -> int"""
-#        return _pyjseisio.jsFileReader_getNumOfLiveTraces(self, *args)
-#
-#    def getCustomProperty(self, *args):
-#        """getCustomProperty(jsFileReader self, std::string _property) -> std::string"""
-#        return _pyjseisio.jsFileReader_getCustomProperty(self, *args)
-
-
 class jsaxis:
     def __init__(self, label, units, length, logVals, physVals):
         self.label = label
