@@ -3,6 +3,7 @@
 
 %module pyjseisio
 
+
 %{
 #define SWIG_FILE_WITH_INIT
 #include "../src/jsFileReader.h"
@@ -17,6 +18,7 @@ using namespace jsIO;
 %include <typemaps.i>
 %include "numpy.i"
 
+
 %init %{
 import_array();
 %}
@@ -28,7 +30,6 @@ import_array();
 %include "jsFileReader_typemaps.i"
 %include "catalogedHdrEntry_typemaps.i"
 %include "catalogedHdrEntry_pythonDefs.i"
-
 
 
 %pythoncode %{

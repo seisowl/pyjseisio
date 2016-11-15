@@ -34,7 +34,6 @@
             'long': self.setLongVal
         }.get(frmt)(hdrBuf,value)
 
-
 %}
 }
 

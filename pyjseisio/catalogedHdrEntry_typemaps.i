@@ -1,5 +1,5 @@
 # pyjseisio SWIG interface file
-# typemaps for jsFileReader
+# typemaps for catalogedHdrEntry
 
 %extend jsIO::catalogedHdrEntry {
 
@@ -47,7 +47,5 @@
 	int setLongVal(int arrayLength, signed char* headerBuf, long val){
 		return ($self)->setLongVal((char*)headerBuf, val);
 	}
-
-
 }
 

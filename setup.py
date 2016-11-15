@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-setup.py file for SWIG example
+setup.py file for pyjseisIO
 """
 
 from distutils.core import setup, Extension

@@ -12,6 +12,11 @@ class jsdataset(object):
 
     @classmethod
     def openForRead(cls, filename):
+        """
+        Factory classmethod to open a JavaSeis dataset for reading.
+        Input: filename - path to JavaSeis dataset directory
+        Output: jsdataset object with file opened
+        """
         data = jsdataset()
         data.reader = js.jsFileReader()
         data.reader.Init(filename)

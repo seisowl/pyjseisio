@@ -7,6 +7,7 @@
 		{(int arrayLength_reader, float* frame)};
 	%apply (int DIM1, signed char* ARGOUT_ARRAY1) 
 		{(int hdrArrayLength_reader, signed char* hdrBuf)};
+
 	%typemap(typecheck) float* frame "";
 	%typemap(typecheck) signed char* hdrBuf "";
 
@@ -15,17 +16,17 @@
 	}
 
 	int readFrameAndHdrs(long frameIndex, 
-                          int arrayLength_reader, 
-                          float* frame,
-                          int hdrArrayLength_reader,
-                          signed char* hdrBuf){
+                         int arrayLength_reader, 
+                         float* frame,
+                         int hdrArrayLength_reader,
+                         signed char* hdrBuf){
 
 		return ($self)->readFrame(frameIndex, frame, (char*)hdrBuf);
 	}
 
 	int readHdrsOnly(long frameIndex, 
-                          int hdrArrayLength_reader,
-                          signed char* hdrBuf){
+                     int hdrArrayLength_reader,
+                     signed char* hdrBuf){
 
 		return ($self)->readFrameHeader(frameIndex, (char*)hdrBuf);
 	}
