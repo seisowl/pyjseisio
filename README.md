@@ -1,39 +1,61 @@
 #pyjseisio
 
-Wrapping the C++ jseisIO library with SWIG for python.
+This project attempts to enable JavaSeis IO capability in Python by providing SWIG wrappers for the C++ [JSeisIO JavaSeis library](http://jseisio.com/). 
 
-All meta data is coming out as lists or tuples (getHdrEntries() returns a tuple)
-Binary data should come out as numpy arrays
+##Status
+Just enough of a SWIG interface has been written to allow basic reading of JavaSeis files. This includes opening a file and collecting metadata (extents, axis definitions, header words, etc), and reading single frames, both trace amplitudes and headers. Trace data and headers are returned as NumPy `ndarray` data.
 
-##References to read
-https://docs.scipy.org/doc/numpy-1.10.0/reference/swig.interface-file.html
+##Dependencies
+* NumPy
+* JSeisIO
+* cmake (for JSeisIO)
+* SWIG
 
-##Notes
-Added numpy.i from numpy git master 11Nov16
-Need to add setenv LD_LIBRARY_PATH "/data/esdrd/eyms/python/pyjseisio/jseisIO"
+##Building JSeisIO
+The JSeisIO library can be downloaded [here](http://jseisio.com/index.php/download). It can be built and installed (on Linux) by:
+```
+tar -xvf jseisIO-1.0.0-Source.tar.gz
+cd jseisIO-1.0.0-Source
+cmake src -DBUILD_SHARED_LIBRARIES=TRUE
+make
+sudo make install
+```
+
+##Installation
+If you have JSeisIO and NumPy (and SWIG) installed, then it should be as easy as running `python setup.py install`. If JSeisIO is installed in a non-path location, then you should set the `library_dirs` command in `setup.cfg`, and if you don't want to set `LD_LIBRARY_PATH`, then you should also set `rpath`.
+
+##API Examples
+The following snippet imports the `pyjseisio` module, loads the test data, and displays the first frame (this code is from the ipython notebook in the `demo/` directory, and reads the provided test dataset in the `test/` directory): 
+```python
+import numpy as np
+import pyjseisio as js
+import matplotlib.pyplot as plt
+
+dataset = js.open("../test/synth.js")   # open the given JavaSeis file for reading
+frame = dataset.readFrame(0)            # read trace data from frame 0
+plt.imshow(frame.transpose(),           # display the frame data
+           aspect=0.1, 
+           cmap='gray')
+```
+
+For convenience, calls to the wrapped C++ methods are made through the `jsdataset` class, which will hopefully hide all the interaction with SWIG/C++ types and let the user deal with purely python data.
+
+Header words are packed into a `hdrs` dictionary for easier use:
+
+```python
+dataset.hdrs.keys()                      # returns a list of all header names
+dataset.hdrs['OFFSET']                   # returns a catalogedHdrEntry object for the header OFFSET
+dataset.hdrs['OFFSET'].getDescription()  # returns the description string for the header OFFSET
+
+hdrBuf = dataset.readFrameHeader(0)      # read the header buffer from frame 0
+dataset.hdrs['OFFSET'].getVal(hdrBuf[0]) # returns the value of the OFFSET header for trace 0
+```
 
 ##TODO
-appropriate swig type for JS_BYTORDER pointers
-int readFrame(const int* _position, float *frame, char *headbuf=NULL);
-void getHeaderWordsInfo(headerWordInfo *pInfo) const;
-int readTraceHeader(const int* _position, char *headbuf);
-int readTraceHeader(const long _traceIndex, char *headbuf);
-int readFrameHeader(const int* _position, char *headbuf);
-int readFrameHeader(const long _frameIndex, char *headbuf)
-int readTrace(const int* _position, float *trace);
-int readTrace(const long _traceIndex, float *trace);
-long readTraces(const long _firstTraceIndex,  const long _numOfTraces, float *buffer, char *headbuf=NULL);
-long readTraceHeaders(const long _firstTraceIndex,  const long _numOfTraces, char *headbuf);
-int liveToGlobalTraceIndex(const long _liveTraceIndex, long &_globalTraceIndex);
-long readWithinLiveTraces(const long _firstTraceIndex,  const long _numOfTraces, float *buffer, char *headbuf=NULL);
-long readWithinLiveTraceHeaders(const long _firstTraceIndex,  const long _numOfTraces, char *headbuf);
-int readFrame(const long _frameIndex, float *frame, char *headbuf=NULL);
-int readRawFrames(const int* _position, int NFrames, char *rawframe, int *numLiveTraces);
-int readRawFrames(const long _frameindex, int NFrames, char *rawframe, int *numLiveTraces);
-int uncompressRawFrame(char *rawframe, int numLiveTraces, int iThread,  float *frame, char* headbuf=NULL);
-
-
-##test code snippet
-import pyjseisio as js; reader = js.jsFileReader(); reader.Init("/data/data343/AcpPromaxHome/mauritania3d/eyms/00transposed_frame.js")
-x = reader.readFrame(0)
-x = reader.getHdrEntries()
+* Finish implementing methods from jsFileReader
+* More convenience methods? Maybe get array of values for one header from headerFrameBuffer?
+* Fix JS_BYTORDER
+* Start on jsFileWriter
+* geometry?
+* Can I use installed JSeisIO headers (in an include dir) instead of providing those files myself?
+* Should I use setuptools instead of distutils?
