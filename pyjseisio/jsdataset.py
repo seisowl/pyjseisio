@@ -1,14 +1,27 @@
-# add some convenience functions for the resulting python class
+from pyjseisio import jsFileReader
+from pyjseisio import vectorToList
+import os.path
 
-%extend jsIO::jsFileReader {
+def open(filename):
+    fpfile = filename+"/FileProperties.xml"
+    assert(os.path.isdir(filename)),("JavaSeis file not found: " + filename)
+    assert(os.path.isfile(fpfile)), ("JavaSeis file not found: " + fpfile)
+    newJseis = jsdataset()
+    newJseis.reader = jsFileReader()
+    newJseis.reader.Init(filename)
+    newJseis._makeHeaderDict()
+    return newJseis
 
-%pythoncode %{
 
-    def makeHeaderDict(self):
+
+class jsdataset(object):
+
+    def _makeHeaderDict(self):
         self.hdrs = {}
-        for hdr in self.getHdrEntries():
+        for hdr in self.reader.getHdrEntries():
             self.hdrs[hdr.getName()] = hdr
 
+# jsFileReader delegate and convenience methods
 
     def readFrame(self, frameIndex):
         """
@@ -16,7 +29,7 @@
         Returns a numpy ndarray with shape (AxisLen(1),AxisLen(0))
         """
         length = self.getAxisLen(0) * self.getAxisLen(1)
-        frame = self._readFrameOnly(frameIndex,length)[1]
+        frame = self.reader._readFrameOnly(frameIndex,length)[1]
         return frame.reshape(self.getAxisLen(1),self.getAxisLen(0))
 
     def readFrameAndHdrs(self, frameIndex):
@@ -28,7 +41,7 @@
         """
         length = self.getAxisLen(0) * self.getAxisLen(1)
         hdrLength = self.getNumBytesInHeader() * self.getAxisLen(1)
-        data = self._readFrameAndHdrs(frameIndex,length,hdrLength);
+        data = self.reader._readFrameAndHdrs(frameIndex,length,hdrLength);
         return (data[1].reshape(self.getAxisLen(1),
                                 self.getAxisLen(0)),
                 data[2].reshape(self.getAxisLen(1),
@@ -44,7 +57,7 @@
         """
         names = StringVector()
         desc = StringVector()
-        nWords = self._getHeaderWords(names,desc)
+        nWords = self.reader._getHeaderWords(names,desc)
         return (vectorToList(names), vectorToList(desc), nWords)
 
     def getAxisLogicalValues(self, axisIndex):
@@ -55,7 +68,7 @@
                 1: Number of values
         """
         values = LongVector()
-        nValues = self._getAxisLogicalValues(axisIndex, values)
+        nValues = self.reader._getAxisLogicalValues(axisIndex, values)
         return (vectorToList(values), nValues)
 
     def getAxisPhyscialValues(self, axisIndex):
@@ -66,7 +79,7 @@
                 1: Number of values
         """
         values = DoubleVector()
-        nValues = self._getAxisPhysicalValues(axisIndex, values)
+        nValues = self.reader._getAxisPhysicalValues(axisIndex, values)
         return (vectorToList(values), nValues)
 
     def getAxisLabels(self):
@@ -77,7 +90,7 @@
                 1: Number of axes
         """
         labels = StringVector()
-        nLabels = self._getAxisLabels(labels)
+        nLabels = self.reader._getAxisLabels(labels)
         return (vectorToList(labels), nLabels)
 
     def getAxisUnits(self):
@@ -88,8 +101,11 @@
                 1: Number of axes
         """
         units = StringVector()
-        nUnits = self._getAxisUnits(units)
-        return (vectorToList(units), nUnits)       
-%}
+        nUnits = self.reader._getAxisUnits(units)
+        return (vectorToList(units), nUnits)
 
-};
+    def getAxisLen(self, axis):
+        return self.reader.getAxisLen(axis)
+    
+    def getNumBytesInHeader(self):
+        return self.reader.getNumBytesInHeader()

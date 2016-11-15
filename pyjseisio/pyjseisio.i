@@ -5,9 +5,9 @@
 
 %{
 #define SWIG_FILE_WITH_INIT
-#include "../jseisIO/src/jsFileReader.h"
-#include "../jseisIO/src/jsByteOrder.h"
-#include "../jseisIO/src/catalogedHdrEntry.h"
+#include "../../jseisIO/src/jsFileReader.h"
+#include "../../jseisIO/src/jsByteOrder.h"
+#include "../../jseisIO/src/catalogedHdrEntry.h"
 using namespace jsIO;
 %}
 
@@ -34,21 +34,15 @@ import_array();
 
 %pythoncode %{
 
-def open(filename):
-    newReader = jsFileReader()
-    newReader.Init(filename)
-    newReader.makeHeaderDict()
-    return newReader
-
-def vectorToList(vector):
-    return [vector[x] for x in xrange(vector.size())]
+    def vectorToList(vector):
+        return [vector[x] for x in xrange(vector.size())]
 %}
 
 
 %feature("autodoc", "1");
-%include ../jseisIO/src/jsFileReader.h
-%include "../jseisIO/src/catalogedHdrEntry.h"
-%include "../jseisIO/src/jsByteOrder.h"
+%include ../../jseisIO/src/jsFileReader.h
+%include "../../jseisIO/src/catalogedHdrEntry.h"
+%include "../../jseisIO/src/jsByteOrder.h"
 
 
 
