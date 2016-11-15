@@ -9,5 +9,4 @@
 %ignore jsIO::jsFileReader::readTraceHeaders;
 %ignore jsIO::jsFileReader::readTraces;
 %ignore jsIO::jsFileReader::readTrace;
-%ignore jsIO::jsFileReader::readFrameHeader;
 %ignore jsIO::jsFileReader::readTraceHeader;

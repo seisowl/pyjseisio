@@ -1,36 +1,52 @@
-from pyjseisio import jsFileReader
-from pyjseisio import vectorToList
+import pyjseisio as js
 import os.path
 
 def open(filename):
     fpfile = filename+"/FileProperties.xml"
     assert(os.path.isdir(filename)),("JavaSeis file not found: " + filename)
     assert(os.path.isfile(fpfile)), ("JavaSeis file not found: " + fpfile)
-    newJseis = jsdataset()
-    newJseis.reader = jsFileReader()
-    newJseis.reader.Init(filename)
-    newJseis._makeHeaderDict()
-    return newJseis
-
+    return jsdataset.openForRead(filename)
 
 
 class jsdataset(object):
 
-    def _makeHeaderDict(self):
-        self.hdrs = {}
-        for hdr in self.reader.getHdrEntries():
-            self.hdrs[hdr.getName()] = hdr
+    @classmethod
+    def openForRead(cls, filename):
+        data = jsdataset()
+        data.reader = js.jsFileReader()
+        data.reader.Init(filename)
+        data.hdrs = {}
+        data.hdrDesc = {}
+        for hdr in data.reader.getHdrEntries():
+            data.hdrs[hdr.getName()] = hdr
+        data.axes = ()
+        labels = js.StringVector()
+        units = js.StringVector()
+        data.reader.getAxisLabels(labels)
+        data.reader.getAxisUnits(units)
+        for idim in range(0,data.reader.getNDim()):
+            logValues = js.LongVector()
+            data.reader.getAxisLogicalValues(idim,logValues)
+            physValues = js.DoubleVector()
+            data.reader.getAxisPhysicalValues(idim,physValues)
+            newAxis = jsaxis(js.vectorToList(labels)[idim],
+                             js.vectorToList(units)[idim],
+                             data.reader.getAxisLen(idim),
+                             js.vectorToList(logValues),
+                             js.vectorToList(physValues))
+            data.axes = data.axes + (newAxis,)
+        return data       
 
-# jsFileReader delegate and convenience methods
+
 
     def readFrame(self, frameIndex):
         """
         Read one frame from the dataset at the given frameIndex.
         Returns a numpy ndarray with shape (AxisLen(1),AxisLen(0))
         """
-        length = self.getAxisLen(0) * self.getAxisLen(1)
-        frame = self.reader._readFrameOnly(frameIndex,length)[1]
-        return frame.reshape(self.getAxisLen(1),self.getAxisLen(0))
+        length = self.axes[0].len * self.axes[1].len
+        frame = self.reader.readFrameOnly(frameIndex,length)[1]
+        return frame.reshape(self.axes[1].len, self.axes[0].len)
 
     def readFrameAndHdrs(self, frameIndex):
         """
@@ -39,73 +55,62 @@ class jsdataset(object):
         [0]: (AxisLen(1),AxisLen(0))
         [1]: (AxisLen(1),NumBytesInHeader)
         """
-        length = self.getAxisLen(0) * self.getAxisLen(1)
-        hdrLength = self.getNumBytesInHeader() * self.getAxisLen(1)
-        data = self.reader._readFrameAndHdrs(frameIndex,length,hdrLength);
-        return (data[1].reshape(self.getAxisLen(1),
-                                self.getAxisLen(0)),
-                data[2].reshape(self.getAxisLen(1),
+        length = self.axes[0].len * self.axes[1].len
+        hdrLength = self.getNumBytesInHeader() * self.axes[1].len
+        data = self.reader.readFrameAndHdrs(frameIndex,length,hdrLength);
+        return (data[1].reshape(self.axes[1].len,
+                                self.axes[0].len),
+                data[2].reshape(self.axes[1].len,
                                 self.getNumBytesInHeader()))
 
-    def getHeaderWords(self):
+    def readFrameHeader(self, frameIndex):
         """
-        Get the header words and descriptions.
-        Returns a three element tuple with:
-                0: List of header names
-                1: List of header descriptions
-                2: Number of headers
+        Read the headers of one frame from the dataset at the given frameIndex.
+        Returns a numpy ndarray with shape (AxisLen(1),NumBytesInHeader)
         """
-        names = StringVector()
-        desc = StringVector()
-        nWords = self.reader._getHeaderWords(names,desc)
-        return (vectorToList(names), vectorToList(desc), nWords)
+        hdrLength = self.getNumBytesInHeader() * self.axes[1].len
+        hdrs = self.reader.readHdrsOnly(frameIndex,hdrLength)[1];
+        return hdrs.reshape(self.axes[1].len, self.getNumBytesInHeader())
 
-    def getAxisLogicalValues(self, axisIndex):
-        """
-        Get the logical values for the given axis.
-        Returns a two element tuple with:
-                0: List of logical values (long)
-                1: Number of values
-        """
-        values = LongVector()
-        nValues = self.reader._getAxisLogicalValues(axisIndex, values)
-        return (vectorToList(values), nValues)
+    # no-arg methods delegated to self.reader
+    def isRegular(self): return self.reader.isRegular()
+    def isSeisPEG(self): return self.reader.isSeisPEG()
+    def getNtr(self): return self.reader.getNtr()
+    def getNFrames(self): return self.reader.getNFrames()
+    def getNumHeaderWords(self): return self.reader.getNumHeaderWords()
+    def getNumBytesInHeader(self): return self.reader.getNumBytesInHeader()
+    def getNumBytesInRawFrame(self): return self.reader.getNumBytesInRawFrame()
+    def getIOBufferSize(self): return self.reader.getIOBufferSize()
+    def getNDim(self): return self.reader.getNDim()
+    def getFrameSizeOnDisk(self): return self.reader.getFrameSizeOnDisk()
+    def getByteOrder(self): return self.reader.getByteOrder()
+    def getByteOrderAsString(self): return self.reader.getByteOrderAsString()
+    def getTraceFormatName(self): return self.reader.getTraceFormatName()
+    def getDescriptiveName(self): return self.reader.getDescriptiveName()
+    def getDataType(self): return self.reader.getDataType()
+    def getVersion(self): return self.reader.getVersion()
+    def getNumOfExtents(self): return self.reader.getNumOfExtents()
+    def getNumOfVirtualFolders(self): return self.reader.getNumOfVirtualFolders()
 
-    def getAxisPhyscialValues(self, axisIndex):
-        """
-        Get the physical values for the given axis.
-        Returns a two element tuple with:
-                0: List of physical values (double)
-                1: Number of values
-        """
-        values = DoubleVector()
-        nValues = self.reader._getAxisPhysicalValues(axisIndex, values)
-        return (vectorToList(values), nValues)
+#
+#    def liveToGlobalTraceIndex(self, *args):
+#        """liveToGlobalTraceIndex(jsFileReader self, long const _liveTraceIndex, long & _globalTraceIndex) -> int"""
+#        return _pyjseisio.jsFileReader_liveToGlobalTraceIndex(self, *args)
+#
+#    def getNumOfLiveTraces(self, *args):
+#        """getNumOfLiveTraces(jsFileReader self, int _frameIndex) -> int"""
+#        return _pyjseisio.jsFileReader_getNumOfLiveTraces(self, *args)
+#
+#    def getCustomProperty(self, *args):
+#        """getCustomProperty(jsFileReader self, std::string _property) -> std::string"""
+#        return _pyjseisio.jsFileReader_getCustomProperty(self, *args)
 
-    def getAxisLabels(self):
-        """
-        Get the labels of each axis.
-        Returns a two element tuple with:
-                0: List of axis labels (string)
-                1: Number of axes
-        """
-        labels = StringVector()
-        nLabels = self.reader._getAxisLabels(labels)
-        return (vectorToList(labels), nLabels)
 
-    def getAxisUnits(self):
-        """
-        Get the units of each axis.
-        Returns a two element tuple with:
-                0: List of axis units (string)
-                1: Number of axes
-        """
-        units = StringVector()
-        nUnits = self.reader._getAxisUnits(units)
-        return (vectorToList(units), nUnits)
-
-    def getAxisLen(self, axis):
-        return self.reader.getAxisLen(axis)
+class jsaxis:
+    def __init__(self, label, units, length, logVals, physVals):
+        self.label = label
+        self.units = units
+        self.len = length
+        self.logicalValues = logVals
+        self.physicalValues = physVals
     
-    def getNumBytesInHeader(self):
-        return self.reader.getNumBytesInHeader()

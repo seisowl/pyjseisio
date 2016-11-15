@@ -26,14 +26,12 @@ import_array();
 %include "vector_templates.i"
 %include "ignore_methods.i"
 %include "jsFileReader_typemaps.i"
-%include "jsFileReader_pythonDefs.i"
 %include "catalogedHdrEntry_typemaps.i"
 %include "catalogedHdrEntry_pythonDefs.i"
 
 
 
 %pythoncode %{
-
     def vectorToList(vector):
         return [vector[x] for x in xrange(vector.size())]
 %}
