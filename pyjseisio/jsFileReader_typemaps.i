@@ -30,11 +30,11 @@
 
 # supplementary methods
 
-	int readFrameOnly(long frameIndex, int arrayLength_reader, float* frame){
+	int readFrameDataOnly(long frameIndex, int arrayLength_reader, float* frame){
 		return ($self)->readFrame(frameIndex, frame, NULL);
 	}
 
-	int readFrameAndHdrs(long frameIndex, 
+	int readFrameDataAndHdrs(long frameIndex, 
                          int arrayLength_reader, 
                          float* frame,
                          int hdrArrayLength_reader,
@@ -43,7 +43,7 @@
 		return ($self)->readFrame(frameIndex, frame, (char*)hdrBuf);
 	}
 
-	int readHdrsOnly(long frameIndex, 
+	int readFrameHdrsOnly(long frameIndex, 
                      int hdrArrayLength_reader,
                      signed char* hdrBuf){
 

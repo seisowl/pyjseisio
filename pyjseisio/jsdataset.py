@@ -49,7 +49,7 @@ class jsdataset(object):
         Returns a numpy ndarray with shape (AxisLen(1),AxisLen(0))
         """
         length = self.axes[0].len * self.axes[1].len
-        frame = self.reader.readFrameOnly(frameIndex,length)[1]
+        frame = self.reader.readFrameDataOnly(frameIndex,length)[1]
         return frame.reshape(self.axes[1].len, self.axes[0].len)
 
     def readFrameAndHdrs(self, frameIndex):
@@ -61,7 +61,7 @@ class jsdataset(object):
         """
         length = self.axes[0].len * self.axes[1].len
         hdrLength = self.getNumBytesInHeader() * self.axes[1].len
-        data = self.reader.readFrameAndHdrs(frameIndex,length,hdrLength);
+        data = self.reader.readFrameDataAndHdrs(frameIndex,length,hdrLength);
         return (data[1].reshape(self.axes[1].len,
                                 self.axes[0].len),
                 data[2].reshape(self.axes[1].len,
@@ -73,7 +73,7 @@ class jsdataset(object):
         Returns a numpy ndarray with shape (AxisLen(1),NumBytesInHeader)
         """
         hdrLength = self.getNumBytesInHeader() * self.axes[1].len
-        hdrs = self.reader.readHdrsOnly(frameIndex,hdrLength)[1];
+        hdrs = self.reader.readFrameHdrsOnly(frameIndex,hdrLength)[1];
         return hdrs.reshape(self.axes[1].len, self.getNumBytesInHeader())
 
     # no-arg methods delegated to self.reader
