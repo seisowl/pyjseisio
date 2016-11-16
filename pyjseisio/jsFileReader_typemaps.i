@@ -10,6 +10,25 @@
 
 	%typemap(typecheck) float* frame "";
 	%typemap(typecheck) signed char* hdrBuf "";
+	%typemap(typecheck) headerWordInfo* pInfo "";
+
+    %typemap(in) headerWordInfo *pInfo{
+        /* headerWordInfo argin */
+        $1 = new headerWordInfo[(arg1)->getNumHeaderWords()];
+    };
+
+    %typemap(argout) headerWordInfo *pInfo{
+        /* headerWordInfo argout */
+        for(int i=0; i<(arg1)->getNumHeaderWords(); i++){
+        PyObject* next = (PyObject*)SWIG_NewPointerObj(SWIG_as_voidptr(&$1[i]), 
+                                            SWIGTYPE_p_jsIO__headerWordInfo, 
+                                            0 );
+            $result = SWIG_Python_AppendOutput($result, next);
+        }
+    };
+
+
+# supplementary methods
 
 	int readFrameOnly(long frameIndex, int arrayLength_reader, float* frame){
 		return ($self)->readFrame(frameIndex, frame, NULL);

@@ -21,7 +21,6 @@ class jsdataset(object):
         data.reader = js.jsFileReader()
         data.reader.Init(filename)
         data.hdrs = {}
-        data.hdrDesc = {}
         for hdr in data.reader.getHdrEntries():
             data.hdrs[hdr.getName()] = hdr
         data.axes = ()
@@ -96,6 +95,10 @@ class jsdataset(object):
     def getVersion(self): return self.reader.getVersion()
     def getNumOfExtents(self): return self.reader.getNumOfExtents()
     def getNumOfVirtualFolders(self): return self.reader.getNumOfVirtualFolders()
+    def getHeaderWordsInfo(self): return self.reader.getHeaderWordsInfo(0)
+
+    # arg-full methods delegated to self.reader
+
 
 class jsaxis:
     def __init__(self, label, units, length, logVals, physVals):
