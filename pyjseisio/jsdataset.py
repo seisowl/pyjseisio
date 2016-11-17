@@ -18,24 +18,24 @@ class jsdataset(object):
         Output: jsdataset object with file opened
         """
         data = jsdataset()
-        data.reader = js.jsFileReader()
-        data.reader.Init(filename)
+        data._reader = js.jsFileReader()
+        data._reader.Init(filename)
         data.hdrs = {}
-        for hdr in data.reader.getHdrEntries():
+        for hdr in data._reader.getHdrEntries():
             data.hdrs[hdr.getName()] = hdr
         data.axes = ()
         labels = js.StringVector()
         units = js.StringVector()
-        data.reader.getAxisLabels(labels)
-        data.reader.getAxisUnits(units)
-        for idim in range(0,data.reader.getNDim()):
+        data._reader.getAxisLabels(labels)
+        data._reader.getAxisUnits(units)
+        for idim in range(0,data._reader.getNDim()):
             logValues = js.LongVector()
-            data.reader.getAxisLogicalValues(idim,logValues)
+            data._reader.getAxisLogicalValues(idim,logValues)
             physValues = js.DoubleVector()
-            data.reader.getAxisPhysicalValues(idim,physValues)
+            data._reader.getAxisPhysicalValues(idim,physValues)
             newAxis = jsaxis(js.vectorToList(labels)[idim],
                              js.vectorToList(units)[idim],
-                             data.reader.getAxisLen(idim),
+                             data._reader.getAxisLen(idim),
                              js.vectorToList(logValues),
                              js.vectorToList(physValues))
             data.axes = data.axes + (newAxis,)
@@ -49,7 +49,7 @@ class jsdataset(object):
         Returns a numpy ndarray with shape (AxisLen(1),AxisLen(0))
         """
         length = self.axes[0].len * self.axes[1].len
-        frame = self.reader.readFrameDataOnly(frameIndex,length)[1]
+        frame = self._reader.readFrameDataOnly(frameIndex,length)[1]
         return frame.reshape(self.axes[1].len, self.axes[0].len)
 
     def readFrameAndHdrs(self, frameIndex):
@@ -61,7 +61,7 @@ class jsdataset(object):
         """
         length = self.axes[0].len * self.axes[1].len
         hdrLength = self.getNumBytesInHeader() * self.axes[1].len
-        data = self.reader.readFrameDataAndHdrs(frameIndex,length,hdrLength);
+        data = self._reader.readFrameDataAndHdrs(frameIndex,length,hdrLength);
         return (data[1].reshape(self.axes[1].len,
                                 self.axes[0].len),
                 data[2].reshape(self.axes[1].len,
@@ -73,31 +73,31 @@ class jsdataset(object):
         Returns a numpy ndarray with shape (AxisLen(1),NumBytesInHeader)
         """
         hdrLength = self.getNumBytesInHeader() * self.axes[1].len
-        hdrs = self.reader.readFrameHdrsOnly(frameIndex,hdrLength)[1];
+        hdrs = self._reader.readFrameHdrsOnly(frameIndex,hdrLength)[1];
         return hdrs.reshape(self.axes[1].len, self.getNumBytesInHeader())
 
-    # no-arg methods delegated to self.reader
-    def isRegular(self): return self.reader.isRegular()
-    def isSeisPEG(self): return self.reader.isSeisPEG()
-    def getNtr(self): return self.reader.getNtr()
-    def getNFrames(self): return self.reader.getNFrames()
-    def getNumHeaderWords(self): return self.reader.getNumHeaderWords()
-    def getNumBytesInHeader(self): return self.reader.getNumBytesInHeader()
-    def getNumBytesInRawFrame(self): return self.reader.getNumBytesInRawFrame()
-    def getIOBufferSize(self): return self.reader.getIOBufferSize()
-    def getNDim(self): return self.reader.getNDim()
-    def getFrameSizeOnDisk(self): return self.reader.getFrameSizeOnDisk()
-    def getByteOrder(self): return self.reader.getByteOrder()
-    def getByteOrderAsString(self): return self.reader.getByteOrderAsString()
-    def getTraceFormatName(self): return self.reader.getTraceFormatName()
-    def getDescriptiveName(self): return self.reader.getDescriptiveName()
-    def getDataType(self): return self.reader.getDataType()
-    def getVersion(self): return self.reader.getVersion()
-    def getNumOfExtents(self): return self.reader.getNumOfExtents()
-    def getNumOfVirtualFolders(self): return self.reader.getNumOfVirtualFolders()
-    def getHeaderWordsInfo(self): return self.reader.getHeaderWordsInfo(0)
+    # no-arg methods delegated to self._reader
+    def isRegular(self): return self._reader.isRegular()
+    def isSeisPEG(self): return self._reader.isSeisPEG()
+    def getNtr(self): return self._reader.getNtr()
+    def getNFrames(self): return self._reader.getNFrames()
+    def getNumHeaderWords(self): return self._reader.getNumHeaderWords()
+    def getNumBytesInHeader(self): return self._reader.getNumBytesInHeader()
+    def getNumBytesInRawFrame(self): return self._reader.getNumBytesInRawFrame()
+    def getIOBufferSize(self): return self._reader.getIOBufferSize()
+    def getNDim(self): return self._reader.getNDim()
+    def getFrameSizeOnDisk(self): return self._reader.getFrameSizeOnDisk()
+    def getByteOrder(self): return self._reader.getByteOrder()
+    def getByteOrderAsString(self): return self._reader.getByteOrderAsString()
+    def getTraceFormatName(self): return self._reader.getTraceFormatName()
+    def getDescriptiveName(self): return self._reader.getDescriptiveName()
+    def getDataType(self): return self._reader.getDataType()
+    def getVersion(self): return self._reader.getVersion()
+    def getNumOfExtents(self): return self._reader.getNumOfExtents()
+    def getNumOfVirtualFolders(self): return self._reader.getNumOfVirtualFolders()
+    def getHeaderWordsInfo(self): return self._reader.getHeaderWordsInfo(0)
 
-    # arg-full methods delegated to self.reader
+    # arg-full methods delegated to self._reader
 
 
 class jsaxis:

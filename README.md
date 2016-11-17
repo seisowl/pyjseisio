@@ -25,17 +25,16 @@ sudo make install
 If you have JSeisIO and NumPy (and SWIG) installed, then it should be as easy as running `python setup.py install`. If JSeisIO is installed in a non-path location, then you should set the `library_dirs` command in `setup.cfg`, and if you don't want to set `LD_LIBRARY_PATH`, then you should also set `rpath`.
 
 ##API Examples
-The following snippet imports the `pyjseisio` module, loads the test data, and displays the first frame (this code is from the ipython notebook in the `demo/` directory, and reads the provided test dataset in the `test/` directory): 
+Jupyter notebooks are available in the `demo/` directory which demonstrate use of `pyjseisio`:
+* [Basic reading](./demo/basic.ipynb)
+
+Here is the super quick, condensed version of how to get started reading JavaSeis data:
 ```python
 import numpy as np
 import pyjseisio as js
-import matplotlib.pyplot as plt
 
 dataset = js.open("../test/synth.js")   # open the given JavaSeis file for reading
 frame = dataset.readFrame(0)            # read trace data from frame 0
-plt.imshow(frame.transpose(),           # display the frame data
-           aspect=0.1, 
-           cmap='gray')
 ```
 
 For convenience, calls to the wrapped C++ methods are made through the `jsdataset` class, which will hopefully hide all the interaction with SWIG/C++ types and let the user deal with purely python data.
