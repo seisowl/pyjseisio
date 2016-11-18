@@ -5,10 +5,13 @@
 
 	%apply (int DIM1, float* ARGOUT_ARRAY1) 
 		{(int arrayLength_reader, float* frame)};
+    %apply (int DIM1, float* ARGOUT_ARRAY1) 
+		{(int arrayLength_reader, float* trace)};
 	%apply (int DIM1, signed char* ARGOUT_ARRAY1) 
 		{(int hdrArrayLength_reader, signed char* hdrBuf)};
 
 	%typemap(typecheck) float* frame "";
+	%typemap(typecheck) float* trace "";
 	%typemap(typecheck) signed char* hdrBuf "";
 	%typemap(typecheck) headerWordInfo* pInfo "";
 
@@ -48,6 +51,31 @@
                      signed char* hdrBuf){
 
 		return ($self)->readFrameHeader(frameIndex, (char*)hdrBuf);
+	}
+
+    // THIS IS NOT WORKING RIGHT!!!
+    // Headers are reading wrong
+	int readTraceDataAndHdr(long traceIndex, 
+                               int arrayLength_reader, 
+                               float* trace,
+                               int hdrArrayLength_reader,
+                               signed char* hdrBuf){
+        ($self)->readTraceHeader(traceIndex, (char*)hdrBuf);
+		return ($self)->readTrace(traceIndex, trace);
+	}
+
+    int readTraceHeadersOnly(long traceIndex, 
+                               long numTraces, 
+                               int hdrArrayLength_reader,
+                               signed char* hdrBuf){
+        return ($self)->readTraceHeaders(traceIndex, numTraces, (char*)hdrBuf);
+    }
+
+	int readTracesDataOnly(long traceIndex, 
+                            long numTraces, 
+                            int arrayLength_reader, 
+                            float* trace){
+        return ($self)->readTraces(traceIndex, numTraces, trace);
 	}
 
 }

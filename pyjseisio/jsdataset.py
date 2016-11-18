@@ -45,7 +45,7 @@ class jsdataset(object):
 
     def readFrame(self, frameIndex):
         """
-        Read one frame from the dataset at the given frameIndex.
+        Read one frame from the dataset at the given global frameIndex.
         Returns a numpy ndarray with shape (AxisLen(1),AxisLen(0))
         """
         length = self.axes[0].len * self.axes[1].len
@@ -54,7 +54,7 @@ class jsdataset(object):
 
     def readFrameAndHdrs(self, frameIndex):
         """
-        Read one frame from the dataset at the given frameIndex with headers.
+        Read one frame from the dataset at the given global frameIndex with headers.
         Returns two numpy ndarrays in a tuple with shapes
         [0]: (AxisLen(1),AxisLen(0))
         [1]: (AxisLen(1),NumBytesInHeader)
@@ -69,12 +69,35 @@ class jsdataset(object):
 
     def readFrameHeader(self, frameIndex):
         """
-        Read the headers of one frame from the dataset at the given frameIndex.
+        Read the headers of one frame from the dataset at the given global frameIndex.
         Returns a numpy ndarray with shape (AxisLen(1),NumBytesInHeader)
         """
         hdrLength = self.getNumBytesInHeader() * self.axes[1].len
         hdrs = self._reader.readFrameHdrsOnly(frameIndex,hdrLength)[1];
         return hdrs.reshape(self.axes[1].len, self.getNumBytesInHeader())
+
+    def readTraces(self, traceIndex, numTraces):
+        """
+        Read multiple traces from the dataset starting 
+        at the given global trace index.
+        Returns a numpy ndarray with shape (numTraces,AxisLen(0))
+        """
+        length = numTraces*self.axes[0].len
+        trace = self._reader.readTracesDataOnly(traceIndex, numTraces, length)[1]
+        return trace.reshape(numTraces, self.axes[0].len)
+
+    def readTraceHeaders(self, traceIndex, numTraces):
+        """
+        Read multiple trace headers from the dataset starting 
+        at the given global trace index.
+        Returns a numpy ndarray with shape (numTraces,NumBytesInHeader)
+        """
+        length = numTraces*self.getNumBytesInHeader()
+        trace = self._reader.readTraceHeadersOnly(traceIndex, numTraces, length)[1]
+        return trace.reshape(numTraces, self.getNumBytesInHeader())
+    
+
+
 
     # no-arg methods delegated to self._reader
     def isRegular(self): return self._reader.isRegular()
