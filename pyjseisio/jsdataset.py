@@ -43,38 +43,54 @@ class jsdataset(object):
 
 
 
-    def readFrame(self, frameIndex):
+    def readFrame(self, frameIndex, liveOnly=False):
         """
         Read one frame from the dataset at the given global frameIndex.
         Returns a numpy ndarray with shape (AxisLen(1),AxisLen(0))
         """
-        length = self.axes[0].len * self.axes[1].len
-        frame = self._reader.readFrameDataOnly(frameIndex,length)[1]
-        return frame.reshape(self.axes[1].len, self.axes[0].len)
+        ntraces =  self.getNumOfLiveTraces(frameIndex) if liveOnly \
+                   else self.axes[1].len
+        fullDataLength = self.axes[0].len * self.axes[1].len
+        dataLength = self.axes[0].len * ntraces
+        frame = self._reader.readFrameDataOnly(frameIndex,fullDataLength)[1]
+        return frame[0:dataLength].reshape(ntraces, self.axes[0].len)
 
-    def readFrameAndHdrs(self, frameIndex):
+    def readFrameAndHdrs(self, frameIndex, liveOnly=False):
         """
         Read one frame from the dataset at the given global frameIndex with headers.
         Returns two numpy ndarrays in a tuple with shapes
         [0]: (AxisLen(1),AxisLen(0))
         [1]: (AxisLen(1),NumBytesInHeader)
+        Keyword argument 'liveOnly' determines whether to retrieve only the live 
+        traces and headers, or all data.
         """
-        length = self.axes[0].len * self.axes[1].len
-        hdrLength = self.getNumBytesInHeader() * self.axes[1].len
-        data = self._reader.readFrameDataAndHdrs(frameIndex,length,hdrLength);
-        return (data[1].reshape(self.axes[1].len,
-                                self.axes[0].len),
-                data[2].reshape(self.axes[1].len,
-                                self.getNumBytesInHeader()))
+        ntraces =  self.getNumOfLiveTraces(frameIndex) if liveOnly \
+                   else self.axes[1].len
+        fullDataLength = self.axes[0].len * self.axes[1].len
+        dataLength = self.axes[0].len * ntraces
+        fullHdrLength = self.getNumBytesInHeader() * self.axes[1].len
+        hdrLength = self.getNumBytesInHeader() * ntraces
+        data = self._reader.readFrameDataAndHdrs(frameIndex,
+                                                 fullDataLangth,
+                                                 fullHdrLength)
+        return (data[1][0:dataLength].reshape(ntraces, 
+                                              self.axes[0].len),
+                data[2][0:hdrLength].reshape(ntraces, 
+                                              self.getNumBytesInHeader()))
 
-    def readFrameHeader(self, frameIndex):
+    def readFrameHeader(self, frameIndex, liveOnly=False):
         """
         Read the headers of one frame from the dataset at the given global frameIndex.
         Returns a numpy ndarray with shape (AxisLen(1),NumBytesInHeader)
+        Keyword argument 'liveOnly' determines whether to retrieve only the live 
+        trace headers, or all headers.  
         """
-        hdrLength = self.getNumBytesInHeader() * self.axes[1].len
-        hdrs = self._reader.readFrameHdrsOnly(frameIndex,hdrLength)[1];
-        return hdrs.reshape(self.axes[1].len, self.getNumBytesInHeader())
+        ntraces =  self.getNumOfLiveTraces(frameIndex) if liveOnly \
+                   else self.axes[1].len
+        fullHdrLength = self.getNumBytesInHeader() * self.axes[1].len
+        hdrLength = self.getNumBytesInHeader() * ntraces
+        hdrs = self._reader.readFrameHdrsOnly(frameIndex,fullHdrLength)[1]
+        return hdrs[0:hdrLength].reshape(ntraces, self.getNumBytesInHeader())
 
     def readTraces(self, traceIndex, numTraces):
         """
@@ -121,6 +137,8 @@ class jsdataset(object):
     def getHeaderWordsInfo(self): return self._reader.getHeaderWordsInfo(0)
 
     # arg-full methods delegated to self._reader
+    def getNumOfLiveTraces(self, frameIndex): 
+        return self._reader.getNumOfLiveTraces(frameIndex)
 
 
 class jsaxis:

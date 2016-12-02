@@ -15,6 +15,10 @@
             'float': self.getFloatVal,
             'double': self.getDoubleVal,
             'int': self.getIntVal,
+            'int8': self.getIntVal,
+            'int16': self.getIntVal,
+            'int32': self.getIntVal,
+            'int64': self.getIntVal,
             'short': self.getShortVal,
             'long': self.getLongVal
         }.get(frmt)(hdrBuf)
