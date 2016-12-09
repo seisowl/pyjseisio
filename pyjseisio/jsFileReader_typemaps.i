@@ -20,7 +20,7 @@
 	%typemap(typecheck) headerWordInfo* pInfo "";
 
 
-# typemaps to return a list of header words
+# typemaps to return a list of header words infos
     %typemap(in) headerWordInfo *pInfo{
         /* headerWordInfo argin */
         $1 = new headerWordInfo[(arg1)->getNumHeaderWords()];
