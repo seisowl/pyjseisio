@@ -440,7 +440,7 @@ namespace jsIO
       int    m_numOfFrameLiveTraces;
       int    m_numOfFrameHeaderLiveTraces;
 
-    public:
+    private:
       int  initExtents(const std::string &jsfilename);
       
       long getFrameIndex(const int* position) const;

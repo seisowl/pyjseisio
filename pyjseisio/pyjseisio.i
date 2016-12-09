@@ -26,7 +26,6 @@ import_array();
 
 # pyjseisio interface files
 %include "vector_templates.i"
-%include "ignore_methods.i"
 %include "jsFileReader_typemaps.i"
 %include "catalogedHdrEntry_typemaps.i"
 %include "catalogedHdrEntry_pythonDefs.i"
