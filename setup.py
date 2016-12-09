@@ -20,7 +20,7 @@ class build(_build):
                    ]
 
 
-pyjseisio_module = Extension('_pyjseisio',
+pyjseisio_module = Extension('_pyjseisio_swig',
                            sources=['pyjseisio/pyjseisio.i'],
                            library_dirs=['../jseisIO'],
                            libraries=['jseisIO'],

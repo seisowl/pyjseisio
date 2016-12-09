@@ -1,7 +1,7 @@
 # pyjseisio SWIG interface file
 # master interface file
 
-%module pyjseisio
+%module pyjseisio_swig
 
 
 %{
