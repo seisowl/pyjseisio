@@ -1,4 +1,4 @@
-import pyjseisio as js
+import pyjseisio.pyjseisio_swig as jsswig
 import os.path
 
 def open(filename):
@@ -18,26 +18,26 @@ class jsdataset(object):
         Output: jsdataset object with file opened
         """
         data = jsdataset()
-        data._reader = js.jsFileReader()
+        data._reader = jsswig.jsFileReader()
         data._reader.Init(filename)
         data.hdrs = {}
         for hdr in data._reader.getHdrEntries():
             data.hdrs[hdr.getName()] = hdr
         data.axes = ()
-        labels = js.StringVector()
-        units = js.StringVector()
+        labels = jsswig.StringVector()
+        units = jsswig.StringVector()
         data._reader.getAxisLabels(labels)
         data._reader.getAxisUnits(units)
         for idim in range(0,data._reader.getNDim()):
-            logValues = js.LongVector()
+            logValues = jsswig.LongVector()
             data._reader.getAxisLogicalValues(idim,logValues)
-            physValues = js.DoubleVector()
+            physValues = jsswig.DoubleVector()
             data._reader.getAxisPhysicalValues(idim,physValues)
-            newAxis = jsaxis(js.vectorToList(labels)[idim],
-                             js.vectorToList(units)[idim],
+            newAxis = jsaxis(jsswig.vectorToList(labels)[idim],
+                             jsswig.vectorToList(units)[idim],
                              data._reader.getAxisLen(idim),
-                             js.vectorToList(logValues),
-                             js.vectorToList(physValues))
+                             jsswig.vectorToList(logValues),
+                             jsswig.vectorToList(physValues))
             data.axes = data.axes + (newAxis,)
         return data       
 
