@@ -1,9 +1,9 @@
-# pyjseisio SWIG interface file
-# typemaps for jsFileReader
+// pyjseisio SWIG interface file
+// typemaps for jsFileReader
 
 %extend jsIO::jsFileReader {
 
-# numpy.i interfaces to return numpy arrays
+// numpy.i interfaces to return numpy arrays
 	%apply (int DIM1, float* ARGOUT_ARRAY1) 
 		{(int arrayLength_reader, float* frame)};
     %apply (int DIM1, float* ARGOUT_ARRAY1) 
@@ -12,7 +12,7 @@
 		{(int hdrArrayLength_reader, signed char* hdrBuf)};
 
 
-# ignore typechecking for these specific argumentes
+// ignore typechecking for these specific argumentes
 	%typemap(typecheck) float* frame "";
 	%typemap(typecheck) float* trace "";
 	%typemap(typecheck) int* position_reader "";
@@ -20,7 +20,7 @@
 	%typemap(typecheck) headerWordInfo* pInfo "";
 
 
-# typemaps to return a list of header words infos
+// typemaps to return a list of header words infos
     %typemap(in) headerWordInfo *pInfo{
         /* headerWordInfo argin */
         $1 = new headerWordInfo[(arg1)->getNumHeaderWords()];
@@ -38,7 +38,7 @@
     };
 
 
-# allow use of the int* _position methods with tuples
+// allow use of the int* _position methods with tuples
     %typemap(in) int* position_reader{
         /* parse position information from incoming tuple */
         int ndim = arg1->getNDim();
@@ -73,7 +73,7 @@
     };
 
 
-# supplementary methods
+// supplementary methods
 
 	int readFrameDataOnly(long frameIndex, 
                           int arrayLength_reader, 

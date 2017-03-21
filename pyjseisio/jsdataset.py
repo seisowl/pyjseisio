@@ -2,9 +2,9 @@ import pyjseisio.pyjseisio_swig as jsswig
 import os.path
 
 def open(filename):
-    fpfile = filename+"/FileProperties.xml"
-    assert(os.path.isdir(filename)),("JavaSeis file not found: " + filename)
-    assert(os.path.isfile(fpfile)), ("JavaSeis file not found: " + fpfile)
+    fpfile = filename+'/FileProperties.xml'
+    assert(os.path.isdir(filename)),('JavaSeis file not found: ' + filename)
+    assert(os.path.isfile(fpfile)), ('JavaSeis file not found: ' + fpfile)
     return jsdataset.openForRead(filename)
 
 
@@ -12,11 +12,11 @@ class jsdataset(object):
 
     @classmethod
     def openForRead(cls, filename):
-        """
+        '''
         Factory classmethod to open a JavaSeis dataset for reading.
         Input: filename - path to JavaSeis dataset directory
         Output: jsdataset object with file opened
-        """
+        '''
         data = jsdataset()
         data._reader = jsswig.jsFileReader()
         data._reader.Init(filename)
@@ -43,7 +43,7 @@ class jsdataset(object):
 
 
     def readFrame(self, frameIndex, readHdrs=True, liveOnly=False):
-        """
+        '''
         Read one frame from the dataset at the given global frameIndex.
         By default, returns a tulple containing (frameData, frameHeader),
         where frameData is a numpy ndarray with shape (AxisLen(1),AxisLen(0))
@@ -51,7 +51,7 @@ class jsdataset(object):
         if readHdrs is set to False, only returns the frameData numpy array.
         If liveOnly is set to True, then the data and header returned are
         for the live traces within the frame only.
-        """
+        '''
         ntraces =  self.getNumOfLiveTraces(frameIndex) if liveOnly \
                    else self.axes[1].len
         fullDataLength = self.axes[0].len * self.axes[1].len
@@ -75,12 +75,12 @@ class jsdataset(object):
 
 
     def readFrameHeader(self, frameIndex, liveOnly=False):
-        """
+        '''
         Read the headers of one frame from the dataset at the given global frameIndex.
         Returns a numpy ndarray with shape (AxisLen(1),NumBytesInHeader)
         Keyword argument 'liveOnly' determines whether to retrieve only the live 
         trace headers, or all headers.  
-        """
+        '''
         ntraces =  self.getNumOfLiveTraces(frameIndex) if liveOnly \
                    else self.axes[1].len
         fullHdrLength = self.getNumBytesInHeader() * self.axes[1].len
@@ -90,22 +90,22 @@ class jsdataset(object):
 
 
     def readTraces(self, traceIndex, numTraces):
-        """
+        '''
         Read multiple traces from the dataset starting 
         at the given global trace index.
         Returns a numpy ndarray with shape (numTraces,AxisLen(0))
-        """
+        '''
         length = numTraces*self.axes[0].len
         trace = self._reader.readTracesDataOnly(traceIndex, numTraces, length)[1]
         return trace.reshape(numTraces, self.axes[0].len)
 
 
     def readTraceHeaders(self, traceIndex, numTraces):
-        """
+        '''
         Read multiple trace headers from the dataset starting 
         at the given global trace index.
         Returns a numpy ndarray with shape (numTraces,NumBytesInHeader)
-        """
+        '''
         length = numTraces*self.getNumBytesInHeader()
         trace = self._reader.readTraceHeadersOnly(traceIndex, numTraces, length)[1]
         return trace.reshape(numTraces, self.getNumBytesInHeader())
@@ -138,10 +138,12 @@ class jsdataset(object):
     def getNumOfLiveTraces(self, frameIndex): 
         return self._reader.getNumOfLiveTraces(frameIndex)
 
-
+label2hdr = {'CROSSLINE':'XLINE_NO', 'INLINE':'ILINE_NO', 'SAIL_LINE':'S_LINE', 'TIME':'V_TIME', 'DEPTH':'V_DEPTH', 'CMP':'CDP', 'RECEIVER_LINE':'R_LINE', 'CHANNEL':'CHAN', 'RECEIVER':'REC_SLOC', 'OFFSET_BIN':'OFB_NO' }
 class jsaxis:
     def __init__(self, label, units, length, logVals, physVals):
         self.label = label
+        hdr = label2hdr.get(label)
+        self.hdr = hdr if hdr else label
         self.units = units
         self.len = length
         self.logicalValues = logVals

@@ -1,5 +1,5 @@
-# pyjseisio SWIG interface file
-# typemaps for catalogedHdrEntry
+// pyjseisio SWIG interface file
+// typemaps for catalogedHdrEntry
 
 %extend jsIO::catalogedHdrEntry {
 

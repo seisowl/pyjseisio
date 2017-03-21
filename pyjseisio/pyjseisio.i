@@ -1,5 +1,5 @@
-# pyjseisio SWIG interface file
-# master interface file
+// pyjseisio SWIG interface file
+// master interface file
 
 %module pyjseisio_swig
 
@@ -24,7 +24,7 @@ import_array();
 %}
 
 
-# pyjseisio interface files
+// pyjseisio interface files
 %include "vector_templates.i"
 %include "jsFileReader_typemaps.i"
 %include "catalogedHdrEntry_typemaps.i"

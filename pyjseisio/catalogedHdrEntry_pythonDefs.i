@@ -1,5 +1,5 @@
-# pyjseisio SWIG interface file
-# python definitions for catalogedHdrEntry
+// pyjseisio SWIG interface file
+// python definitions for catalogedHdrEntry
 
 %extend jsIO::catalogedHdrEntry {
 %pythoncode %{
