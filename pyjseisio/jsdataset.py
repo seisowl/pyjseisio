@@ -17,7 +17,7 @@ class jsdataset(object):
         Input: filename - path to JavaSeis dataset directory
         Output: jsdataset object with file opened
         '''
-        data = jsdataset()
+        data = cls()
         data._reader = jsswig.jsFileReader()
         data._reader.Init(filename)
         data.hdrs = {}
