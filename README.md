@@ -16,6 +16,7 @@ The JSeisIO library can be downloaded [here](http://jseisio.com/index.php/downlo
 ```
 tar -xvf jseisIO-1.0.0-Source.tar.gz
 cd jseisIO-1.0.0-Source
+sed -i 's/="boolean"/="boolean" || stype=="bool"/' src/Parameter.cpp
 cmake src -DBUILD_SHARED_LIBS=TRUE
 make
 sudo make install
