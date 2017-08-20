@@ -19,6 +19,7 @@ sudo ldconfig
 ```
 
 ##Building JSeisIO
+
 The modified JSeisIO library can be downloaded [here](https://github.com/seisowl/pyjseisio). It can be built and installed (on Linux) by:
 ```shell
 cd jseisio
