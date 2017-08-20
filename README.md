@@ -12,15 +12,15 @@ Just enough of a SWIG interface has been written to allow basic reading of JavaS
 * SWIG
 
 ##For some Linux distributions, this might be convenient (especially when you do not deal with any cross-platform compiling):
-...
+```shell
 sudo ln -s /usr/local/lib /usr/local/lib64
 sudo echo /usr/local/lib > /etc/ld.so.conf.d/libc.conf
 sudo ldconfig
-...
+```
 
 ##Building JSeisIO
 The modified JSeisIO library can be downloaded [here](https://github.com/seisowl/pyjseisio). It can be built and installed (on Linux) by:
-```
+```shell
 cd jseisio
 cmake src -DBUILD_SHARED_LIBS=TRUE
 make
@@ -29,9 +29,9 @@ sudo make install
 
 ##Installation
 If you have JSeisIO and NumPy (and SWIG) installed, then it should be as easy as running:
-...
+```shell
 sudo python setup.py install
-...
+```
 If JSeisIO is installed in a non-path location, then you should set the `library_dirs` command in `setup.cfg`, and if you don't want to set `LD_LIBRARY_PATH`, then you should also set `rpath`.
 
 ##API Examples
