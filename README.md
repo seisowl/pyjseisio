@@ -31,6 +31,7 @@ sudo make install
 ##Installation
 If you have JSeisIO and NumPy (and SWIG) installed, then it should be as easy as running:
 ```shell
+sudo python setup.py clean --all
 sudo python setup.py install
 ```
 If JSeisIO is installed in a non-path location, then you should set the `library_dirs` command in `setup.cfg`, and if you don't want to set `LD_LIBRARY_PATH`, then you should also set `rpath`.

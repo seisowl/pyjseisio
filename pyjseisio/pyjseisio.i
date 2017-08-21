@@ -23,6 +23,9 @@ using namespace jsIO;
 import_array();
 %}
 
+%pythoncode %{
+import numpy as np
+%}
 
 // pyjseisio interface files
 %include "vector_templates.i"
