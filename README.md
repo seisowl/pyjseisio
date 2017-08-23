@@ -19,8 +19,8 @@ sudo echo /usr/local/lib > /etc/ld.so.conf.d/libc.conf
 sudo ldconfig
 ```
 
-# Building JSeisIO
-Follow the instruction on https://github.com/seisowl/jseisio.
+# Build and install JSeisIO
+See: [JSeisIO on GitHub: build and install](https://github.com/seisowl/jseisio#build-and-install-jseisio).
 
 # Installation
 If you have JSeisIO and NumPy (and SWIG) installed, then it should be as easy as running (as adminstrator):
