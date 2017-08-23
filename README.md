@@ -1,6 +1,6 @@
 # pyjseisio
 
-This project attempts to enable JavaSeis IO capability in Python by providing SWIG wrappers for the C++ [JSeisIO JavaSeis library](http://jseisio.com/). The current version requires the modified version [JSeisIO on GitHub](https://github.com/seisowl/jseisio).
+This project attempts to enable JavaSeis IO capability in Python by providing SWIG wrappers for the C++ [JSeisIO JavaSeis library](http://jseisio.com/). The current version is forked and modified from https://github.com/ericaddison/pyjseisio and requires the modified version [JSeisIO on GitHub](https://github.com/seisowl/jseisio).
 
 # Status
 Just enough of a SWIG interface has been written to allow basic reading of JavaSeis files. This includes opening a file and collecting metadata (extents, axis definitions, header words, etc), and reading single frames, both trace amplitudes and headers. Trace data and headers are returned as NumPy `ndarray` data.
