@@ -24,16 +24,16 @@ numbytesinheader = 148
 bytespersample = 2
 numbytesinrawframe = 41120
 buffersize = 2097152
-samplelogicalvalues = range(nsamples)
-tracelogicalvalues = range(1,tracesperframe+1)
-framelogicalvalues = range(2000,2003)
-volumelogicalvalues = range(1000,1003)
-hyperlogicalvalues = range(0,2)
-samplephysicalvalues = range(0,1002,2)
-tracephysicalvalues = range(0,2000,50)
-framephysicalvalues = range(0,150,50)
-volumephysicalvalues = range(0,150,50)
-hyperphysicalvalues = range(0,2,1)
+samplelogicalvalues = list(range(nsamples))
+tracelogicalvalues = list(range(1,tracesperframe+1))
+framelogicalvalues = list(range(2000,2003))
+volumelogicalvalues = list(range(1000,1003))
+hyperlogicalvalues = list(range(0,2))
+samplephysicalvalues = list(range(0,1002,2))
+tracephysicalvalues = list(range(0,2000,50))
+framephysicalvalues = list(range(0,150,50))
+volumephysicalvalues = list(range(0,150,50))
+hyperphysicalvalues = list(range(0,2,1))
 axislabels = ["TIME", "SEQNO", "CROSSLINE", "INLINE", "FILTERID"]
 axisunits = ['milliseconds', 'feet', 'feet', 'feet', 'unknown']
 
@@ -109,6 +109,8 @@ class TestJsFileReader(unittest.TestCase):
         frames = jsswig.LongVector()
         fr.getAxisLogicalValues(2, frames)
         framesL = [frames[i] for i in range(len(frames))]
+        print(framesL)
+        print(framelogicalvalues)
         assert (framesL == framelogicalvalues)
 
     def test_getAxisLogicalValues_volumes(self):

@@ -1,1 +1,1 @@
-from jsdataset import open
+from . jsdataset import open
