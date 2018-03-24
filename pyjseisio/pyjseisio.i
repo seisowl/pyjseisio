@@ -36,7 +36,7 @@ import numpy as np
 
 %pythoncode %{
     def vectorToList(vector):
-        return [vector[x] for x in xrange(vector.size())]
+        return [vector[x] for x in range(vector.size())]
 %}
 
 

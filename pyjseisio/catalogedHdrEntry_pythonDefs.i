@@ -85,7 +85,7 @@
         assert hdrBuf.shape[0]==len(values), \
             "require hdrBuf.shape[0]==len(values)"
         ntraces = hdrBuf.shape[0]
-        return [self.setVal(hdrBuf[i,:], values[i]) for i in xrange(ntraces)]
+        return [self.setVal(hdrBuf[i,:], values[i]) for i in range(ntraces)]
 
 %}
 }
