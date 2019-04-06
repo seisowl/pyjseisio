@@ -1,5 +1,4 @@
-/***************************************************************************
-                          jsFileReader.h  -  description
+/**                          jsFileReader.h  -  description
                              -------------------
 
     copyright            : (C) 2012 Fraunhofer ITWM
@@ -50,6 +49,7 @@ namespace jsIO
 
   class TraceProperties;
   class FileProperties;
+  class CustomProperties;
   class ExtentList;
   class TraceCompressor;
   class CharBuffer;
@@ -58,6 +58,7 @@ namespace jsIO
   class TraceMap;
   class catalogedHdrEntry;
   class IOCachedReader;
+  class VirtualFolders;
 
   /**
    * This class is for reading a dataset in JavaSeis format.
@@ -76,6 +77,9 @@ namespace jsIO
   
   class jsFileReader
   {
+
+	friend class jsFileWriter;
+
     public:
       ~jsFileReader();
       
@@ -91,15 +95,15 @@ namespace jsIO
        *  @param _NThreads number of threads that can be used in uncompressRawFrame function
       */
       int Init(const std::string _jsfilename, const int _NThreads=1);
-      
+
       ///@return true if the dataset is regular, otherwise returns false
       bool isRegular() const;
       ///@return true if the data is in SeisPEG format, otherwise returns false
-      bool isSeisPEG() const; 
-      
+      bool isSeisPEG() const;
+
       ///@return total number of live tracaes in the dataset
       long getNtr() const;
-      
+
       ///@return total number of frames in the dataset
       long getNFrames() const;
 
@@ -117,7 +121,16 @@ namespace jsIO
       
       ///@return trace header length in bytes
       int getNumBytesInHeader() const;
-      
+
+      /**
+       * @brief get header value based on the given name
+       */
+      float getFloatHdrVal(std::string _name, char * headerBuf);
+      double getDoubleHdrVal(std::string _name, char * headerBuf);
+      long getLongHdrVal(std::string _name, char * headerBuf);
+      int getIntHdrVal(std::string _name, char * headerBuf);
+      short getShortHdrVal(std::string _name, char * headerBuf);
+
       /** 
        * @brief Get the length (in bytes) of 'raw' frame
        * @details
@@ -137,6 +150,11 @@ namespace jsIO
       unsigned long getIOBufferSize() const {return m_IOBufferSize;}
       int getNDim() const;
       int getAxisLen(int index) const;
+      int getAxisLogicalOrigin(int index) const;
+      int getAxisLogicalDelta(int index) const;
+      double getAxisPhysicalOrigin(int index) const;
+      double getAxisPhysicalDelta(int index) const;
+      catalogedHdrEntry getAxisHdrEntry(int _axisInd) const;
       int getAxisLogicalValues(int index, std::vector<long> &axis) const;
       int getAxisPhysicalValues(int index, std::vector<double> &axis) const;
       int getAxisLabels(std::vector<std::string> &axis) const;
@@ -164,12 +182,13 @@ namespace jsIO
       * @brief Returns list of all header-words in a form of catalogedHdrEntry class
       */ 
       std::vector<catalogedHdrEntry> getHdrEntries() const;
+      int getHdrEntries(std::vector<std::string> &hdrEntries) const;
 
       //in all following function  *position is an array of integers defining the position of a frame/trace   accorind to the logical coordintes
       //len(position)=fileProps.numDimensions-1;
 
-      //you can read also headers together with frames with readFrame function 
-      
+      //you can read also headers together with frames with readFrame function
+
       /**
        * @brief Reads the header of the trace given by its position
        * @param _position position of the trace given in logical coordinates
@@ -177,7 +196,7 @@ namespace jsIO
        * @return JS_OK if successful
       */
       int readTraceHeader(const int* _position, char *headbuf);
-      
+
       /**
        * @brief Reads the header of the trace given by its its global index
        * @param _traceIndex global trace index
@@ -185,7 +204,7 @@ namespace jsIO
        * @return JS_OK if successful
       */
       int readTraceHeader(const long _traceIndex, char *headbuf);
-      
+
       /**
        * @brief Reads the header of the frame given by its position
        * @param _position position of the frame given in logical coordinates
@@ -193,7 +212,7 @@ namespace jsIO
        * @return the number of live traces in the frame
       */
       int readFrameHeader(const int* _position, char *headbuf);
-      
+
       /**
        * @brief Reads the header of the frame given by its global index
        * @param _frameIndex global frame index
@@ -209,16 +228,16 @@ namespace jsIO
        * @return JS_OK if successful
       */
       int readTrace(const int* _position, float *trace);
-      
+
       /**
        * @brief Reads the trace given by its its global index
        * @param _traceIndex global index of the trace
        * @param[out] trace a pre-allocated float array (with a length at least getAxisLen(0)) to save the trace
        * @return JS_OK if successful
       */
-      int readTrace(const long _traceIndex, float *trace); 
+      int readTrace(const long _traceIndex, float *trace);
 
-      
+
       /**
        * @brief Reads multiple traces
        * @param _firstTraceIndex global index of the first trace
@@ -226,7 +245,7 @@ namespace jsIO
        * @param[out] buffer a pre-allocated float array (with a length getAxisLen(0) * _numOfTraces) to save traces
        * @param[out] headbuf (if not NULL) a pre-allocated buffer (with a size _numOfTraces*getNumBytesInHeader()) to save traces headers
        * @return the number of live traces actually read (<0 in case of error)
-      */      
+      */
       long readTraces(const long _firstTraceIndex,  const long _numOfTraces, float *buffer, char *headbuf=NULL);
 
       /**
@@ -241,7 +260,7 @@ namespace jsIO
 
       /**
        * @brief Converts live trace index to global trace index
-       * @details 
+       * @details
        *  For example liveToGlobalTraceIndex(10, n) will iniialize n with the global index of 10-th live trace.
        *  Live traces are in range [0,getNtr()]
       */
@@ -258,8 +277,8 @@ namespace jsIO
       long readWithinLiveTraces(const long _firstTraceIndex,  const long _numOfTraces, float *buffer, char *headbuf=NULL);
 
 
-      // Note that extensively random use of readWithinLiveTraces or readWithinLiveTraceHeaders functions can be noticeably slow in 
-      // comparison to other reading routines, because each time for computing the file-offset of given live trace we have to 
+      // Note that extensively random use of readWithinLiveTraces or readWithinLiveTraceHeaders functions can be noticeably slow in
+      // comparison to other reading routines, because each time for computing the file-offset of given live trace we have to
       // read TraceMap from the beginning until the corresponding position.
       // In case of sequentially use, we remember previous indices, so we don't need to read TraceMap from the beginning.
 
@@ -283,7 +302,7 @@ namespace jsIO
        *  The reading of header together with traces will be faster only for SeisPEG data, since there the header is compressed with the data
       */
       int readFrame(const int* _position, float *frame, char *headbuf=NULL);
-      
+
       /**
        * @brief Reads the frame given by its global index
        * @param _frameIndex _frameIndex index of the frame
@@ -297,7 +316,7 @@ namespace jsIO
        * @brief Reads multiple raw frames
        * @details
        *   A raw frame is a frame as it is saved on a disk, i.e. possibly in compressed format.
-       *   Call this function from one thread only to read multile frames from a disk. 
+       *   Call this function from one thread only to read multile frames from a disk.
        *   Afterwards, these raw frames can be uncompressed (if format is not FLOAT) with uncompressRawFrame
        *   using multiple threads.
        * @param _position position of the first frame given in logical coordinates
@@ -306,13 +325,13 @@ namespace jsIO
        * @param[out] numLiveTraces an array with a number of live trace in each read frames
        * @return JS_OK if successful
       */
-      int readRawFrames(const int* _position, int NFrames, char *rawframe, int *numLiveTraces);  
-      
+      int readRawFrames(const int* _position, int NFrames, char *rawframe, int *numLiveTraces);
+
       /**
        * @brief Reads multiple raw frames
        * @details
        *   A raw frame is a frame as it is saved on a disk, i.e. possibly in compressed format.
-       *   Call this function from one thread only to read multile frames from a disk. 
+       *   Call this function from one thread only to read multile frames from a disk.
        *   Afterwards, these raw frames can be uncompressed (if format is not FLOAT) with uncompressRawFrame
        *   using multiple threads.
        * @param _frameindex position of the first frame given in logical coordinates
@@ -322,7 +341,7 @@ namespace jsIO
        * @return JS_OK if successful
       */
       int readRawFrames(const long _frameindex, int NFrames, char *rawframe, int *numLiveTraces);
-      
+
       /**
        * @brief Uncompress raw frames
        * @details
@@ -331,47 +350,48 @@ namespace jsIO
        * @param numLiveTraces number of live traces in rawframe
        * @param iThread current thread ID (must be smaller than _NThreads parameter used in Init function)
        * @param[out] frame a pre-allocated float array (with a length at least  getAxisLen(0) * getAxisLen(1) ) to save the frame
-       * @param[out] headbuf in case of SeisPEG data must be pre-allocated buffer 
+       * @param[out] headbuf in case of SeisPEG data must be pre-allocated buffer
                      (with a size at least getAxisLen(1)*getNumBytesInHeader()) to save the frame header.
       */
       int uncompressRawFrame(char *rawframe, int numLiveTraces, int iThread,  float *frame, char* headbuf=NULL);
 
       /**
-       * @brief Returns the number of live traces in frame with global index _frameIndex 
+       * @brief Returns the number of live traces in frame with global index _frameIndex
       */
       int getNumOfLiveTraces(int _frameIndex) const;
-      
+
       /**
-       * @brief Returns the version number (as a string) of dataset 
+       * @brief Returns the version number (as a string) of dataset
       */
       std::string getVersion() const;
-      
+
       /**
       * @brief Read a parameter from CustomProperties
       * @details Returns the value of parameter given as _property defined in CustomProperties part of FileProperties.xml
       * or an empty string in case of error.
       * For example getCustomProperty("Stacked"), or getCustomProperty("FieldInstruments/earlyGain")
-      */  
+      */
       std::string getCustomProperty(std::string _property);
-      
+
       /**
-       * @brief Returns the number of extents in dataset 
+       * @brief Returns the number of extents in dataset
       */
       int getNumOfExtents() const;
 
       /**
-       * @brief Returns the number of virtual folders in dataset 
+       * @brief Returns the number of virtual folders in dataset
       */
       int getNumOfVirtualFolders() const;
-      
+
     private:
       int m_NThreads;
 
       TraceProperties* m_traceProps;
       FileProperties* m_fileProps;
+      CustomProperties * m_customProps;
 
       std::string m_filename;
-  
+
       bool m_bInit;
 
       long m_TotalNumOfLiveTraces;
@@ -393,12 +413,13 @@ namespace jsIO
       int m_headerLengthWords;
       long m_frameHeaderLength;
 
-      unsigned long m_IOBufferSize; 
+      unsigned long m_IOBufferSize;
       IOCachedReader *m_pCachedReaderHD;
       IOCachedReader *m_pCachedReaderTR;
 
       TraceMap *m_trMap;
 
+      VirtualFolders *vFolders;
       ExtentList *m_TrFileExtents;
       ExtentList *m_TrHeadExtents;
 
@@ -416,17 +437,17 @@ namespace jsIO
       CharBuffer *m_traceBuffer;
 
       char *m_headerBufferArray;
-      CharBuffer *m_headerBuffer; 
+      CharBuffer *m_headerBuffer;
       IntBuffer *m_headerBufferView;
 
       std::string m_descriptiveName;
-    
-      //these variables used in liveToGlobalTraceIndex to mimimize the access to TraceMap in 
+
+      //these variables used in liveToGlobalTraceIndex to mimimize the access to TraceMap in
       //case of sequentially calling liveToGlobalTraceIndex
       long m_prev_firstTr1; //liveTraceIndex preciously used in liveToGlobalTraceIndex
       long m_prev_frInd1;  //global frame index corresponding to liveTraceIndex
       long m_prev_numTraces1; //number of live traces total in all frames till m_prev_frInd
-     
+
       //same as above, we just keep information on two access of liveToGlobalTraceIndex
       long m_prev_firstTr2;
       long m_prev_numTraces2;
@@ -442,7 +463,7 @@ namespace jsIO
 
     private:
       int  initExtents(const std::string &jsfilename);
-      
+
       long getFrameIndex(const int* position) const;
       long getTraceIndex(const int* position)  const;
 
@@ -450,9 +471,9 @@ namespace jsIO
       int readTraceBuffer(long offset, char *buf, long buflen);
       int readHeaderBuffer(long offset, char *buf, long buflen);
 
-      void Close(); 
+      void Close();
 
-      int readSingleProperty(const std::string &_datasetPath, const std::string  &_fileName, 
+      int readSingleProperty(const std::string &_datasetPath, const std::string  &_fileName,
                              const std::string  propertyName, std::string &propertyValue) const;
 
   };
@@ -460,6 +481,4 @@ namespace jsIO
 
 
 #endif
-
-
 
