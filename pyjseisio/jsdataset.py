@@ -1,3 +1,4 @@
+import numpy as np
 import pyjseisio.pyjseisio_swig as jsswig
 import os.path
 
@@ -6,6 +7,7 @@ def open(filename):
     assert(os.path.isdir(filename)),('JavaSeis file not found: ' + filename)
     assert(os.path.isfile(fpfile)), ('JavaSeis file not found: ' + fpfile)
     return jsdataset.openForRead(filename)
+
 
 
 class jsdataset(object):
@@ -20,14 +22,20 @@ class jsdataset(object):
         data = cls()
         data._reader = jsswig.jsFileReader()
         data._reader.Init(filename)
+        data._infilename = filename
+        data._writer = None
+        data._outfilename = None
+        data._outwriter = None
         data.hdrs = {}
         for hdr in data._reader.getHdrEntries():
             data.hdrs[hdr.getName()] = hdr
         data.axes = ()
         labels = jsswig.StringVector()
         units = jsswig.StringVector()
+        domains = jsswig.StringVector()
         data._reader.getAxisLabels(labels)
         data._reader.getAxisUnits(units)
+        data._reader.getAxisDomains(domains)
         for idim in range(0,data._reader.getNDim()):
             logValues = jsswig.LongVector()
             data._reader.getAxisLogicalValues(idim,logValues)
@@ -35,11 +43,60 @@ class jsdataset(object):
             data._reader.getAxisPhysicalValues(idim,physValues)
             newAxis = jsaxis(jsswig.vectorToList(labels)[idim],
                              jsswig.vectorToList(units)[idim],
+                             jsswig.vectorToList(domains)[idim],
                              data._reader.getAxisLen(idim),
                              jsswig.vectorToList(logValues),
                              jsswig.vectorToList(physValues))
             data.axes = data.axes + (newAxis,)
-        return data       
+        return data
+
+    def writeFrame(self, frameIndex, traces, headers=None, ntraces=-1):
+        '''
+        Overwrite the current frame/hdrs at given global frameIndex
+        :param frameIndex: global frame index
+        :param traces: the frame buffer
+        :param headers: the header buffer
+        :param ntraces: number trace in this frame
+        :return: number of trace written
+        '''
+        if self._writer is None:
+            self._writer = jsswig.jsFileWriter()
+            self._writer.setFileName(self._infilename)
+            self._writer.Init(self._reader)
+
+        if headers is None:
+            return self._writer.writeFrame(frameIndex, np.reshape(traces, (np.product(traces.shape),)))
+        else:
+            return self._writer.writeFrame(frameIndex, np.reshape(traces, (np.product(traces.shape),)),
+                                           np.reshape(headers, (np.product(headers.shape),)), ntraces)
+
+    def writeFrameToFile(self, outfilename, frameIndex, traces, headers=None, ntraces=-1):
+        '''
+        save the frame/header to outfilename file. if it is new file, it will copy all info from current input file,
+        then replace the specify frame with the given buffer.
+        :param outfilename: the filename to be written
+        :param frameIndex: global frame index
+        :param traces: the frame buffer
+        :param headers: the header buffer
+        :param ntraces: number trace in this frame
+        :return: number of trace written
+        '''
+        if outfilename == self._infilename :
+            self.overWriteFrame(frameIndex, np.reshape(traces, (np.product(traces.shape),)),
+                                np.reshape(headers, (np.product(headers.shape),)), ntraces)
+        else :
+            if outfilename == self._outfilename :
+                self._outwriter.writeFrame(frameIndex, np.reshape(traces, (np.product(traces.shape),)),
+                                           np.reshape(headers, (np.product(headers.shape),)), ntraces)
+            else:
+                assert (not os.path.isdir(outfilename)), ('!!!File exist: ' + outfilename)
+                self._outwriter = jsswig.jsFileWriter()
+                self._outwriter.setFileName(outfilename)
+                self._outwriter.Init(self._reader)
+                self._outwriter.writeMetaData(2)
+                self._outfilename = outfilename
+                self._outwriter.writeFrame(frameIndex, np.reshape(traces, (np.product(traces.shape),)),
+                                           np.reshape(headers, (np.product(headers.shape),)), ntraces)
 
 
     def readFrame(self, frameIndex, readHdrs=True, liveOnly=False):
@@ -109,8 +166,6 @@ class jsdataset(object):
         length = numTraces*self.getNumBytesInHeader()
         trace = self._reader.readTraceHeadersOnly(traceIndex, numTraces, length)[1]
         return trace.reshape(numTraces, self.getNumBytesInHeader())
-    
-
 
 
     # no-arg methods delegated to self._reader
@@ -140,11 +195,12 @@ class jsdataset(object):
 
 label2hdr = {'CROSSLINE':'XLINE_NO', 'INLINE':'ILINE_NO', 'SAIL_LINE':'S_LINE', 'TIME':'V_TIME', 'DEPTH':'V_DEPTH', 'CMP':'CDP', 'RECEIVER_LINE':'R_LINE', 'CHANNEL':'CHAN', 'RECEIVER':'REC_SLOC', 'OFFSET_BIN':'OFB_NO' }
 class jsaxis:
-    def __init__(self, label, units, length, logVals, physVals):
+    def __init__(self, label, units, domain, length, logVals, physVals):
         self.label = label
         hdr = label2hdr.get(label)
         self.hdr = hdr if hdr else label
         self.units = units
+        self.domain = domain
         self.len = length
         self.logicalValues = logVals
         self.physicalValues = physVals

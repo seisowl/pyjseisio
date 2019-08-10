@@ -7,7 +7,7 @@ import pyjseisio.pyjseisio_swig as jsswig
 # testing the SWIGGED methods of jsFileReader on the test dataset synth.js
 fr = jsswig.jsFileReader()
 
-%matplotlib inline
+# %matplotlib inline
 
 
 usefulStuff = filter((lambda s: s[0:2]!='__'),dir(js))
@@ -22,7 +22,8 @@ fh = dataset.readFrameHeader(iframe, liveOnly=True)
 frame = dataset.readFrame(iframe, readHdrs=False, liveOnly=True)
 
 for ir in xrange(fh.shape[0]):
-    print dataset.hdrs['PAD_TRC'].getVal(fh[ir]), dataset.hdrs['TR_FOLD'].getVal(fh[ir]), dataset.hdrs['SHOT_2D'].getVal(fh[ir])
+    print dataset.hdrs['PAD_TRC'].getVal(fh[ir]), dataset.hdrs['TR_FOLD'].getVal(fh[ir])
+#, dataset.hdrs['SHOT_2D'].getVal(fh[ir])
 
 usefulStuff = filter((lambda s: s[0:2]!='__'),dir(dataset.hdrs['XLINE_NO']))
 print usefulStuff

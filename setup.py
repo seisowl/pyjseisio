@@ -6,7 +6,7 @@ setup.py file for pyjseisIO
 
 from distutils.core import setup, Extension
 import imp
-
+import numpy
 from distutils.command.build import build as _build
 
 #Define custom build order, so that the python interface module
@@ -33,6 +33,7 @@ setup (name = 'pyjseisio',
        description = """Wrapped jseisIO library for Python""",
        ext_package = 'pyjseisio',
        ext_modules = [pyjseisio_module],
+       include_dirs=[numpy.get_include()],
        packages = ["pyjseisio"],
        cmdclass = {'build': build }
        )
