@@ -79,6 +79,7 @@ print ("Write OK")
 # testing the SWIGGED methods of jsFileWriter on the test data to copy and update
 fr = jsswig.jsFileReader()
 fr.Init("./dataTest.js")
+fr.closefp();
 
 jsWrtTestCopy = jsswig.jsFileWriter()
 jsWrtTestCopy.setFileName("./dataTestCopy.js")
@@ -139,12 +140,13 @@ while (iInline<NInlines):
 print ("copy and update all OK")
 
 # testing the SWIGGED methods of jsFileWriter on the test data to copy and update traces only
-fr = jsswig.jsFileReader()
-fr.Init("./dataTest.js")
+fr1 = jsswig.jsFileReader()
+fr1.Init("./dataTest.js")
+fr1.closefp();
 
 jsWrtTestCopy = jsswig.jsFileWriter()
 jsWrtTestCopy.setFileName("./dataTestCopy2.js")
-jsWrtTestCopy.Init(fr)
+jsWrtTestCopy.Init(fr1)
 ires = jsWrtTestCopy.writeMetaData(2)
 
 ndim = jsWrtTestCopy.getNDim()
@@ -181,12 +183,12 @@ print ("copy and update traces OK")
 
 # testing the SWIGGED methods of jsFileWriter on the test data to update traces only
 
-fr = jsswig.jsFileReader()
-fr.Init("./dataTestCopy2.js")
+fr1 = jsswig.jsFileReader()
+fr1.Init("./dataTestCopy2.js")
 
 jsWrtTestCopy = jsswig.jsFileWriter()
 jsWrtTestCopy.setFileName("./dataTestCopy2.js")
-jsWrtTestCopy.Init(fr)
+jsWrtTestCopy.Init(fr1)
 jsWrtTestCopy.Initialize();
 
 ndim = jsWrtTestCopy.getNDim()
