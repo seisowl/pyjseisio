@@ -32,8 +32,10 @@
         provided header buffer. 
         """
         ndim = hdrBuf.ndim
+        """
         assert ndim==2 or ndim==3, \
             "require hdrBuf ndim 2 or 3"
+        """
         hbuf = hdrBuf.reshape(1, hdrBuf.shape[0], hdrBuf.shape[1]) if (ndim ==2) else hdrBuf
         nframes = hbuf.shape[0]
         ntraces = hbuf.shape[1]
