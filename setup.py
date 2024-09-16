@@ -4,8 +4,8 @@
 setup.py file for pyjseisIO
 """
 
-from distutils.core import setup, Extension
-import imp
+from setuptools import setup, Extension
+#import imp
 import numpy
 from distutils.command.build import build as _build
 
@@ -24,11 +24,11 @@ pyjseisio_module = Extension('_pyjseisio_swig',
                            sources=['pyjseisio/pyjseisio.i'],
                            library_dirs=['../jseisIO'],
                            libraries=['jseisIO'],
-                           swig_opts=['-modern', '-c++']
+                           swig_opts=['-c++']
                            )
 
 setup (name = 'pyjseisio',
-       version = '0.1',
+       version = '0.11',
        author      = "SWIG Docs",
        description = """Wrapped jseisIO library for Python""",
        ext_package = 'pyjseisio',

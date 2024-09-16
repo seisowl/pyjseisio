@@ -26,12 +26,14 @@ See: [JSeisIO on GitHub: build and install](https://github.com/seisowl/jseisio#b
 If you have JSeisIO and NumPy (and SWIG) installed, then it should be as easy as running (as adminstrator):
 ```shell
 sudo python setup.py clean --all
-sudo python setup.py install
+python setup.py build
+sudo pip install .
 ```
 For per user installation:
 ```shell
 python setup.py clean --all
-python setup.py install --user
+python setup.py build
+pip install --user .
 ```
 If JSeisIO is installed in a non-path location, then you should set the `library_dirs` command in `setup.cfg`, and if you don't want to set `LD_LIBRARY_PATH`, then you should also set `rpath`.
 
