@@ -31,8 +31,9 @@ sudo pip install .
 ```
 For per user installation:
 ```shell
-python setup.py clean --all
-python setup.py build
+./setup.py clean --all
+./setup.py build
+pip install -U --user pip setuptools wheel
 pip install --user .
 ```
 If JSeisIO is installed in a non-path location, then you should set the `library_dirs` command in `setup.cfg`, and if you don't want to set `LD_LIBRARY_PATH`, then you should also set `rpath`.

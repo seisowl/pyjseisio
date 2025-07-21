@@ -5,3 +5,7 @@ pyjseisio/pyjseisio_wrap.cpp
 build
 .project
 *.swp
+**/*.egg-info
+**/version.cpp
+__pycache__
+
